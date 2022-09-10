@@ -1,0 +1,145 @@
+div.rfvidqseldiv {
+	width: 100%;
+	display: block;
+	margin: 1rem 0;
+	padding: 0;
+}
+div.rfvidqseldiv label {
+	width: 100%;
+	display: block;
+	font-weight: bolder;
+}
+div.rfvidqseldiv select {
+	width: auto;
+}
+div.rfvideo {
+	position: relative;
+	background-color: #000;
+	color: #fff;
+	float: left;
+	margin: 0 0 9px;
+	padding: 0;
+}
+div.rfvideo480p {
+	height: 480px;
+	width: 640px;
+}
+div.rfvideo360p {
+	height: 360px;
+	width: 480px;
+}
+div.rfvideostatus {
+	position: absolute;
+	display: block;
+	top: 0;
+	left: 0;
+	margin: 9px;
+	padding: 0;
+	z-index: 9999;
+	font-family: var(--body-font-family);
+	font-size: 13px;
+	text-decoration: none;
+	color: #fff;
+}
+div.rfvideoplaylist {
+	background-color: #222;
+	float: none;
+	display: block;
+	overflow: auto;
+	margin: 0 0 9px;
+	padding: 0;
+}
+div.rfvideoplaylist480p {
+	height: 480px;
+	width: 350px;
+}
+div.rfvideoplaylist360p {
+	height: 360px;
+	width: 350px;
+}
+div.rfvideoplaylist ul {
+	margin: 10px 0 0 15px;
+	padding: 0;
+}
+div.rfvideoplaylist li {
+	list-style: none outside none;
+	height: 30px;
+	margin: 0;
+	padding: 0;
+}
+div.rfvideoplaylist li a {
+	font-family: var(--body-font-family);
+	font-size: 13px;
+	text-decoration: none;
+	color: #bbb !important;
+}
+div.rfvideoplaylist li a:hover,
+div.rfvideoplaylist li a:focus {
+	cursor: pointer;
+	color: #fff !important;
+	text-decoration: underline !important;
+}
+@media (max-width: 1090px) {
+	div.rfvideo480p {
+		margin: 0;
+	}
+	div.rfvideoplaylist480p {
+		height: 240px;
+		width: 640px;
+		display: inline-block;
+	}
+}
+@media (max-width: 930px) {
+	div.rfvideo360p {
+		margin: 0;
+	}
+	div.rfvideoplaylist360p {
+		height: 180px;
+		width: 480px;
+		display: inline-block;
+	}
+}
+@media (max-width: 699px) {
+	div.rfvideo480p {
+		height: auto;
+		width: 100%;
+		margin: 0;
+	}
+	div.rfvideo480p video {
+		height: auto;
+		width: 100%;
+	}
+	div.rfvideoplaylist480p {
+		height: 180px;
+		width: 100%;
+		display: inline-block;
+	}
+}
+@media (max-width: 539px) {
+	div.rfvideo360p {
+		height: auto;
+		width: 100%;
+		margin: 0;
+	}
+	div.rfvideo360p video {
+		height: auto;
+		width: 100%;
+	}
+	div.rfvideoplaylist360p {
+		height: 180px;
+		width: 100%;
+		display: inline-block;
+	}
+}
+@media (max-width: 419px) {
+	div.rfvideoplaylist ul {
+		margin: 8px 0 0 12px;
+		padding: 0;
+	}
+	div.rfvideoplaylist li {
+		height: 24px;
+	}
+	div.rfvideoplaylist li a {
+		font-size: 10px;
+	}
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+	<update>
+		<name>Richard Fath's video player module</name>
+		<description>Richard Fath's video player module for Joomla! CMS</description>
+		<element>mod_rfvideo</element>
+		<type>module</type>
+		<version>1.0.0</version>
+		<client>site</client>
+		<infourl title="Richard Fath's Video Player Module">https://github.com/richard67/mod_rfvideo/blob/main/README.md</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/richard67/mod_rfvideo/releases/download/1.0.0/mod_rfaudio_v1.0.1.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<targetplatform name="joomla" version="4.[0123]" />
+	</update>
+</updates>
