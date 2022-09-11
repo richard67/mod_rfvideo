@@ -20,8 +20,12 @@
 		<folder>tmpl</folder>
 	</files>
 	<languages>
+		<language tag="de-DE">language/de-DE/mod_rfvideo.ini</language>
+		<language tag="de-DE">language/de-DE/mod_rfvideo.sys.ini</language>
 		<language tag="en-GB">language/en-GB/mod_rfvideo.ini</language>
 		<language tag="en-GB">language/en-GB/mod_rfvideo.sys.ini</language>
+		<language tag="ru-RU">language/ru-RU/mod_rfvideo.ini</language>
+		<language tag="ru-RU">language/ru-RU/mod_rfvideo.sys.ini</language>
 	</languages>
 	<updateservers>
 		<!-- Note: No spaces or linebreaks allowed between the server tags -->
