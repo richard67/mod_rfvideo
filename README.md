@@ -1,2 +1,2 @@
 # mod_rfvideo
-Video player module for Joomla
+Video player module for Joomla 4
