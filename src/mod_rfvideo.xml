@@ -25,7 +25,7 @@
 	</languages>
 	<updateservers>
 		<!-- Note: No spaces or linebreaks allowed between the server tags -->
-		<server type="extension" name="Richard Fath's Video Player Module Update Site">https://raw.githubusercontent.com/richard67/mod_video/main/manifest.xml</server>
+		<server type="extension" name="Richard Fath's Video Player Module Update Site">https://raw.githubusercontent.com/richard67/mod_rfvideo/main/manifest.xml</server>
 	</updateservers>
 	<config>
 		<fields name="params">
