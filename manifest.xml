@@ -9,7 +9,7 @@
 		<client>site</client>
 		<infourl title="Richard Fath's Video Player Module">https://github.com/richard67/mod_rfvideo/blob/main/README.md</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/richard67/mod_rfvideo/releases/download/1.0.0/mod_rfaudio_v1.0.1.zip</downloadurl>
+			<downloadurl type="full" format="zip">https://github.com/richard67/mod_rfvideo/releases/download/1.0.0/mod_rfaudio_1.0.0.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>stable</tag>
