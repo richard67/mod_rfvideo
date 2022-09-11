@@ -11,6 +11,7 @@
 		<downloads>
 			<downloadurl type="full" format="zip">https://github.com/richard67/mod_rfvideo/releases/download/1.0.0/mod_rfvideo_1.0.0.zip</downloadurl>
 		</downloads>
+		<sha512>36f2566e0c2dabeb1323e925578beb1897f77f2e81a0c3e230d9cda5f0d5a74488c3cd8c9703237d5a753c847cc2009f7ee67048b9df507f22b3ba41383c6627</sha512>
 		<tags>
 			<tag>stable</tag>
 		</tags>
