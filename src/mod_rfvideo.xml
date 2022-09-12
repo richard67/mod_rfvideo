@@ -38,6 +38,7 @@
 					name="autoplay"
 					type="radio"
 					label="MOD_RFVIDEO_AUTOPLAY_LABEL"
+					description="MOD_RFVIDEO_AUTOPLAY_DESCR"
 					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
@@ -48,6 +49,7 @@
 					name="controls"
 					type="radio"
 					label="MOD_RFVIDEO_CONTROLS_LABEL"
+					description="MOD_RFVIDEO_CONTROLS_DESCR"
 					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
@@ -58,6 +60,7 @@
 					name="loop"
 					type="radio"
 					label="MOD_RFVIDEO_LOOP_LABEL"
+					description="MOD_RFVIDEO_LOOP_DESCR"
 					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
@@ -68,6 +71,7 @@
 					name="muted"
 					type="radio"
 					label="MOD_RFVIDEO_MUTED_LABEL"
+					description="MOD_RFVIDEO_MUTED_DESCR"
 					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
@@ -78,6 +82,7 @@
 					name="preload"
 					type="list"
 					label="MOD_RFVIDEO_PRELOAD_LABEL"
+					description="MOD_RFVIDEO_PRELOAD_DESCR"
 					required="true"
 					default="none"
 					validate="options"
@@ -90,6 +95,7 @@
 					name="download_link"
 					type="text"
 					label="MOD_RFVIDEO_DOWNLOAD_LINK_LABEL"
+					description="MOD_RFVIDEO_DOWNLOAD_LINK_DESCR"
 				/>
 			</fieldset>
 
@@ -98,6 +104,7 @@
 					name="select_position"
 					type="list"
 					label="MOD_RFVIDEO_SELECT_POSITION_LABEL"
+					description="MOD_RFVIDEO_SELECT_POSITION_DESCR"
 					default="none"
 					validate="options"
 					>
@@ -109,6 +116,7 @@
 					name="select_size"
 					type="integer"
 					label="MOD_RFVIDEO_SELECT_SIZE_LABEL"
+					description="MOD_RFVIDEO_SELECT_SIZE_DESCR"
 					first="1"
 					last="9"
 					step="1"
@@ -118,18 +126,21 @@
 					name="select_label"
 					type="text"
 					label="MOD_RFVIDEO_SELECT_LABEL_LABEL"
+					description="MOD_RFVIDEO_SELECT_LABEL_DESCR"
 					showon="select_position:top,bottom"
 				/>
 				<field
 					name="select_description"
 					type="text"
 					label="MOD_RFVIDEO_SELECT_DESCRIPTION_LABEL"
+					description="MOD_RFVIDEO_SELECT_DESCRIPTION_DESCR"
 					showon="select_position:top,bottom"
 				/>
 				<field
 					name="source_groups"
 					type="subform"
 					label="MOD_RFVIDEO_SOURCE_GROUPS_LABEL"
+					description="MOD_RFVIDEO_SOURCE_GROUPS_DESCR"
 					multiple="true"
 					layout="joomla.form.field.subform.repeatable"
 					buttons="add,remove,move"
@@ -179,6 +190,7 @@
 									name="file"
 									type="media"
 									label="MOD_RFVIDEO_SOURCE_FILE_LABEL"
+									description="MOD_RFVIDEO_SOURCE_FILE_DESCR"
 									required="true"
 									preview="false"
 									types="videos"
@@ -187,6 +199,7 @@
 									name="type"
 									type="list"
 									label="MOD_RFVIDEO_SOURCE_TYPE_LABEL"
+									description="MOD_RFVIDEO_SOURCE_TYPE_DESCR"
 									required="true"
 									validate="options"
 									>
@@ -205,6 +218,7 @@
 					name="playlist"
 					type="subform"
 					label="MOD_RFVIDEO_PLAYLIST_LABEL"
+					description="MOD_RFVIDEO_PLAYLIST_DESCR"
 					multiple="true"
 					layout="joomla.form.field.subform.repeatable-table"
 					buttons="add,remove,move"
@@ -214,6 +228,7 @@
 							name="position"
 							type="text"
 							label="MOD_RFVIDEO_PLAYLIST_ITEM_POSITION_LABEL"
+							description="MOD_RFVIDEO_PLAYLIST_ITEM_POSITION_DESCR"
 							required="true"
 							filter="float"
 						/>
@@ -221,6 +236,7 @@
 							name="title"
 							type="text"
 							label="MOD_RFVIDEO_PLAYLIST_ITEM_TITLE_LABEL"
+							description="MOD_RFVIDEO_PLAYLIST_ITEM_TITLE_DESCR"
 							required="true"
 						/>
 					</form>
