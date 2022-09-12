@@ -68,7 +68,7 @@
     if (mySelectQ) {
       var mySourceGroups = [];
 
-      for (var _i = 0; _i < mySelectQ.size; ++_i) {
+      for (var _i = 0; _i < mySelectQ.length; ++_i) {
         var opts = mySelectQ.options[_i].value.split(';');
 
         var group = {

@@ -61,7 +61,7 @@ allVideoPlayerDivs.forEach(videoPlayerDiv => {
   if (mySelectQ) {
     let mySourceGroups = [];
 
-    for (let i = 0; i < mySelectQ.size; ++i) {
+    for (let i = 0; i < mySelectQ.length; ++i) {
       const opts = mySelectQ.options[i].value.split(';');
       let group = {
         'suffix': opts[0],
