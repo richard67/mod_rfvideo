@@ -12,4 +12,4 @@ But there is no documentation yet, and currently I won't be able to provide any 
 This might change when I find the time.
 
 ## Known Issues
-When the module is being served from module cache, the language strings used in JavaScript are not translated. To circumvent this, switch off caching in the module's advanced settings.
+When the module is being served from module cache, the language strings used in JavaScript are not translated. To circumvent this when using module cache, switch off caching in the module's advanced settings.
