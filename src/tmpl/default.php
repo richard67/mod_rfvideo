@@ -27,7 +27,7 @@ $wa = $app->getDocument()->getWebAssetManager();
 $wa->registerAndUseScript('mod_rfvideo.es5', 'mod_rfvideo/rfvideo-es5.min.js', [], ['nomodule' => true, 'defer' => true], ['core']);
 $wa->registerAndUseScript('mod_rfvideo', 'mod_rfvideo/rfvideo.min.js', [], ['type' => 'module'], ['mod_rfvideo.es5', 'core']);
 
-$stylesheet = $params->get('stylesheet', '-1');
+$stylesheet = $params->get('stylesheet', 'rfvideo.css');
 
 if ($stylesheet !== '-1') {
     $wa->registerAndUseStyle('mod_rfvideo', 'mod_rfvideo/' . $stylesheet);

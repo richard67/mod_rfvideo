@@ -104,6 +104,7 @@
 					description="MOD_RFVIDEO_STYLESHEET_DESCR"
 					directory="media/mod_rfvideo/css"
 					fileFilter="^.+[^min]\.css$"
+					default="rfvideo.css"
 					hide_default="true"
 				/>
 			</fieldset>
