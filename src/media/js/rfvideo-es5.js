@@ -5,6 +5,10 @@
    * @copyright  (C) 2022 Richard Fath <https://www.richard-fath.de>
    * @license    GNU General Public License version 2 or later; see LICENSE.txt
    */
+  if (!Joomla) {
+    throw new Error('Joomla API was not properly initialized');
+  }
+
   function sourceSelectChanged(elSelect, elVideoDiv, elPlaylistDiv, elVideo, sourceGroups) {
     var vidExt = elVideo.currentSrc.substr(elVideo.currentSrc.lastIndexOf('.'));
 
