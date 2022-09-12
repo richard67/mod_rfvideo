@@ -97,6 +97,15 @@
 					label="MOD_RFVIDEO_DOWNLOAD_LINK_LABEL"
 					description="MOD_RFVIDEO_DOWNLOAD_LINK_DESCR"
 				/>
+				<field
+					name="stylesheet"
+					type="filelist"
+					label="MOD_RFVIDEO_STYLESHEET_LABEL"
+					description="MOD_RFVIDEO_STYLESHEET_DESCR"
+					directory="media/mod_rfvideo/css"
+					fileFilter="^.+[^min]\.css$"
+					hide_default="true"
+				/>
 			</fieldset>
 
 			<fieldset name="sources" label="MOD_RFVIDEO_SOURCES_FIELDSET_LABEL">
