@@ -35,6 +35,13 @@
 		<fields name="params">
 			<fieldset name="basic">
 				<field
+					name="basic_note"
+					type="note"
+					class="alert alert-info"
+					label="MOD_RFVIDEO_BASIC_NOTE_LABEL"
+					description="MOD_RFVIDEO_BASIC_NOTE_DESCR"
+				/>
+				<field
 					name="autoplay"
 					type="radio"
 					label="MOD_RFVIDEO_AUTOPLAY_LABEL"
@@ -110,6 +117,13 @@
 			</fieldset>
 
 			<fieldset name="sources" label="MOD_RFVIDEO_SOURCES_FIELDSET_LABEL">
+				<field
+					name="sources_note"
+					type="note"
+					class="alert alert-info"
+					label="MOD_RFVIDEO_SOURCES_NOTE_LABEL"
+					description="MOD_RFVIDEO_SOURCES_NOTE_DESCR"
+				/>
 				<field
 					name="select_position"
 					type="list"
