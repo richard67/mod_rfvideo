@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @package     Joomla.Administrator
- * @subpackage  mod_rfvideo
+ * @package     mod_rfvideo
  *
  * @copyright   (C) 2022 Richard Fath <https://www.richard-fath.de>
  * @license     GNU General Public License version 2 or later; see LICENSE.txt

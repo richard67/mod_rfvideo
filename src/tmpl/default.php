@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @package     Joomla.Site
- * @subpackage  mod_rfvideo
+ * @package     mod_rfvideo
  *
  * @copyright   (C) 2022 Richard Fath <https://www.richard-fath.de>
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -27,7 +26,12 @@ if (empty($sourceGroups)) {
 $wa = $app->getDocument()->getWebAssetManager();
 $wa->registerAndUseScript('mod_rfvideo.es5', 'mod_rfvideo/rfvideo-es5.min.js', [], ['nomodule' => true, 'defer' => true], ['core']);
 $wa->registerAndUseScript('mod_rfvideo', 'mod_rfvideo/rfvideo.min.js', [], ['type' => 'module'], ['mod_rfvideo.es5', 'core']);
-$wa->registerAndUseStyle('mod_rfvideo', 'mod_rfvideo/rfvideo.css');
+
+$stylesheet = $params->get('stylesheet', 'rfvideo.css');
+
+if ($stylesheet !== '-1') {
+    $wa->registerAndUseStyle('mod_rfvideo', 'mod_rfvideo/' . $stylesheet);
+}
 
 $title        = Text::_($params->get('title'));
 $downloadLink = $params->get('download_link', '');

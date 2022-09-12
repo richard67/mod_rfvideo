@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @package     Joomla.Site
- * @subpackage  mod_rfvideo
+ * @package     mod_rfvideo
  *
  * @copyright   (C) 2022 Richard Fath <https://www.richard-fath.de>
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -77,7 +76,7 @@ class RfVideoHelper
 
         $selectHtmlEnd .= '</div>';
 
-        return $selectHtmlStart . ($size < $count ? $size : $count) . $selectHtmlEnd;
+        return $selectHtmlStart . (($size > 0 && $size < $count) ? $size : $count) . $selectHtmlEnd;
     }
 
     /**

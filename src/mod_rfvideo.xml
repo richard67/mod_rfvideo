@@ -2,12 +2,12 @@
 <extension type="module" client="site" method="upgrade">
 	<name>mod_rfvideo</name>
 	<author>Richard Fath</author>
-	<creationDate>2004-07</creationDate>
+	<creationDate>2022-09</creationDate>
 	<copyright>(C) 2022 Richard Fath</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>admin@richard-fath.de</authorEmail>
 	<authorUrl>www.richard-fath.de</authorUrl>
-	<version>1.0.1</version>
+	<version>1.0.2-dev</version>
 	<description>MOD_RFVIDEO_XML_DESCRIPTION</description>
 	<namespace path="src">Joomla\Module\RfVideo</namespace>
 	<media destination="mod_rfvideo" folder="media">
@@ -20,8 +20,12 @@
 		<folder>tmpl</folder>
 	</files>
 	<languages>
+		<language tag="de-DE">language/de-DE/mod_rfvideo.ini</language>
+		<language tag="de-DE">language/de-DE/mod_rfvideo.sys.ini</language>
 		<language tag="en-GB">language/en-GB/mod_rfvideo.ini</language>
 		<language tag="en-GB">language/en-GB/mod_rfvideo.sys.ini</language>
+		<language tag="ru-RU">language/ru-RU/mod_rfvideo.ini</language>
+		<language tag="ru-RU">language/ru-RU/mod_rfvideo.sys.ini</language>
 	</languages>
 	<updateservers>
 		<!-- Note: No spaces or linebreaks allowed between the server tags -->
@@ -31,9 +35,17 @@
 		<fields name="params">
 			<fieldset name="basic">
 				<field
+					name="basic_note"
+					type="note"
+					class="alert alert-info"
+					label="MOD_RFVIDEO_BASIC_NOTE_LABEL"
+					description="MOD_RFVIDEO_BASIC_NOTE_DESCR"
+				/>
+				<field
 					name="autoplay"
 					type="radio"
 					label="MOD_RFVIDEO_AUTOPLAY_LABEL"
+					description="MOD_RFVIDEO_AUTOPLAY_DESCR"
 					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
@@ -44,6 +56,7 @@
 					name="controls"
 					type="radio"
 					label="MOD_RFVIDEO_CONTROLS_LABEL"
+					description="MOD_RFVIDEO_CONTROLS_DESCR"
 					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
@@ -54,6 +67,7 @@
 					name="loop"
 					type="radio"
 					label="MOD_RFVIDEO_LOOP_LABEL"
+					description="MOD_RFVIDEO_LOOP_DESCR"
 					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
@@ -64,6 +78,7 @@
 					name="muted"
 					type="radio"
 					label="MOD_RFVIDEO_MUTED_LABEL"
+					description="MOD_RFVIDEO_MUTED_DESCR"
 					layout="joomla.form.field.radio.switcher"
 					default="0"
 					>
@@ -74,6 +89,7 @@
 					name="preload"
 					type="list"
 					label="MOD_RFVIDEO_PRELOAD_LABEL"
+					description="MOD_RFVIDEO_PRELOAD_DESCR"
 					required="true"
 					default="none"
 					validate="options"
@@ -86,14 +102,33 @@
 					name="download_link"
 					type="text"
 					label="MOD_RFVIDEO_DOWNLOAD_LINK_LABEL"
+					description="MOD_RFVIDEO_DOWNLOAD_LINK_DESCR"
+				/>
+				<field
+					name="stylesheet"
+					type="filelist"
+					label="MOD_RFVIDEO_STYLESHEET_LABEL"
+					description="MOD_RFVIDEO_STYLESHEET_DESCR"
+					directory="media/mod_rfvideo/css"
+					fileFilter="^.+[^min]\.css$"
+					default="rfvideo.css"
+					hide_default="true"
 				/>
 			</fieldset>
 
 			<fieldset name="sources" label="MOD_RFVIDEO_SOURCES_FIELDSET_LABEL">
 				<field
+					name="sources_note"
+					type="note"
+					class="alert alert-info"
+					label="MOD_RFVIDEO_SOURCES_NOTE_LABEL"
+					description="MOD_RFVIDEO_SOURCES_NOTE_DESCR"
+				/>
+				<field
 					name="select_position"
 					type="list"
 					label="MOD_RFVIDEO_SELECT_POSITION_LABEL"
+					description="MOD_RFVIDEO_SELECT_POSITION_DESCR"
 					default="none"
 					validate="options"
 					>
@@ -105,7 +140,8 @@
 					name="select_size"
 					type="integer"
 					label="MOD_RFVIDEO_SELECT_SIZE_LABEL"
-					first="1"
+					description="MOD_RFVIDEO_SELECT_SIZE_DESCR"
+					first="0"
 					last="9"
 					step="1"
 					showon="select_position:top,bottom"
@@ -114,18 +150,21 @@
 					name="select_label"
 					type="text"
 					label="MOD_RFVIDEO_SELECT_LABEL_LABEL"
+					description="MOD_RFVIDEO_SELECT_LABEL_DESCR"
 					showon="select_position:top,bottom"
 				/>
 				<field
 					name="select_description"
 					type="text"
 					label="MOD_RFVIDEO_SELECT_DESCRIPTION_LABEL"
+					description="MOD_RFVIDEO_SELECT_DESCRIPTION_DESCR"
 					showon="select_position:top,bottom"
 				/>
 				<field
 					name="source_groups"
 					type="subform"
 					label="MOD_RFVIDEO_SOURCE_GROUPS_LABEL"
+					description="MOD_RFVIDEO_SOURCE_GROUPS_DESCR"
 					multiple="true"
 					layout="joomla.form.field.subform.repeatable"
 					buttons="add,remove,move"
@@ -175,6 +214,7 @@
 									name="file"
 									type="media"
 									label="MOD_RFVIDEO_SOURCE_FILE_LABEL"
+									description="MOD_RFVIDEO_SOURCE_FILE_DESCR"
 									required="true"
 									preview="false"
 									types="videos"
@@ -183,6 +223,7 @@
 									name="type"
 									type="list"
 									label="MOD_RFVIDEO_SOURCE_TYPE_LABEL"
+									description="MOD_RFVIDEO_SOURCE_TYPE_DESCR"
 									required="true"
 									validate="options"
 									>
@@ -201,6 +242,7 @@
 					name="playlist"
 					type="subform"
 					label="MOD_RFVIDEO_PLAYLIST_LABEL"
+					description="MOD_RFVIDEO_PLAYLIST_DESCR"
 					multiple="true"
 					layout="joomla.form.field.subform.repeatable-table"
 					buttons="add,remove,move"
@@ -210,6 +252,7 @@
 							name="position"
 							type="text"
 							label="MOD_RFVIDEO_PLAYLIST_ITEM_POSITION_LABEL"
+							description="MOD_RFVIDEO_PLAYLIST_ITEM_POSITION_DESCR"
 							required="true"
 							filter="float"
 						/>
@@ -217,6 +260,7 @@
 							name="title"
 							type="text"
 							label="MOD_RFVIDEO_PLAYLIST_ITEM_TITLE_LABEL"
+							description="MOD_RFVIDEO_PLAYLIST_ITEM_TITLE_DESCR"
 							required="true"
 						/>
 					</form>
