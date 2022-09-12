@@ -76,7 +76,7 @@ class RfVideoHelper
 
         $selectHtmlEnd .= '</div>';
 
-        return $selectHtmlStart . ($size < $count ? $size : $count) . $selectHtmlEnd;
+        return $selectHtmlStart . (($size > 0 && $size < $count) ? $size : $count) . $selectHtmlEnd;
     }
 
     /**

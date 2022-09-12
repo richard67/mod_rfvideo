@@ -117,7 +117,7 @@
 					type="integer"
 					label="MOD_RFVIDEO_SELECT_SIZE_LABEL"
 					description="MOD_RFVIDEO_SELECT_SIZE_DESCR"
-					first="1"
+					first="0"
 					last="9"
 					step="1"
 					showon="select_position:top,bottom"
