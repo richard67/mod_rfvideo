@@ -1,4 +1,8 @@
-function selChangeQ(elSelect, elVideoDiv, elPlaylistDiv, elVideo, sourceGroups) {
+/**
+ * @copyright  (C) 2022 Richard Fath <https://www.richard-fath.de>
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ */
+function sourceSelectChanged(elSelect, elVideoDiv, elPlaylistDiv, elVideo, sourceGroups) {
   const vidExt = elVideo.currentSrc.substr(elVideo.currentSrc.lastIndexOf('.'));
 
   if (vidExt === '') {
@@ -42,7 +46,7 @@ const allVideoPlayerDivs = document.querySelectorAll('div.rfvideoplayer');
 allVideoPlayerDivs.forEach(videoPlayerDiv => {
   const myVideoDiv = videoPlayerDiv.querySelector('.rfvideo');
   const myPlaylistDiv = videoPlayerDiv.querySelector('.rfvideoplaylist');
-  const mySelectQ = videoPlayerDiv.getElementsByTagName('select')[0];
+  const mySourceSelect = videoPlayerDiv.getElementsByTagName('select')[0];
   const myVideo = videoPlayerDiv.getElementsByTagName('video')[0];
   const myStatus = videoPlayerDiv.querySelector('.rfvideostatus');
   const myPlaylistItems = videoPlayerDiv.getElementsByTagName('li');
@@ -58,11 +62,11 @@ allVideoPlayerDivs.forEach(videoPlayerDiv => {
     });
   }
 
-  if (mySelectQ) {
+  if (mySourceSelect) {
     let mySourceGroups = [];
 
-    for (let i = 0; i < mySelectQ.length; ++i) {
-      const opts = mySelectQ.options[i].value.split(';');
+    for (let i = 0; i < mySourceSelect.length; ++i) {
+      const opts = mySourceSelect.options[i].value.split(';');
       let group = {
         'suffix': opts[0],
         'height': opts[1],
@@ -73,8 +77,8 @@ allVideoPlayerDivs.forEach(videoPlayerDiv => {
       mySourceGroups[i] = group;
     }
 
-    mySelectQ.addEventListener('change', function () {
-      selChangeQ(mySelectQ, myVideoDiv, myPlaylistDiv, myVideo, mySourceGroups);
+    mySourceSelect.addEventListener('change', function () {
+      sourceSelectChanged(mySourceSelect, myVideoDiv, myPlaylistDiv, myVideo, mySourceGroups);
     });
   }
 

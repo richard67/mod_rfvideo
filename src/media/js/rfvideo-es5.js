@@ -1,7 +1,11 @@
 (function () {
   'use strict';
 
-  function selChangeQ(elSelect, elVideoDiv, elPlaylistDiv, elVideo, sourceGroups) {
+  /**
+   * @copyright  (C) 2022 Richard Fath <https://www.richard-fath.de>
+   * @license    GNU General Public License version 2 or later; see LICENSE.txt
+   */
+  function sourceSelectChanged(elSelect, elVideoDiv, elPlaylistDiv, elVideo, sourceGroups) {
     var vidExt = elVideo.currentSrc.substr(elVideo.currentSrc.lastIndexOf('.'));
 
     if (vidExt === '') {
@@ -45,7 +49,7 @@
   allVideoPlayerDivs.forEach(function (videoPlayerDiv) {
     var myVideoDiv = videoPlayerDiv.querySelector('.rfvideo');
     var myPlaylistDiv = videoPlayerDiv.querySelector('.rfvideoplaylist');
-    var mySelectQ = videoPlayerDiv.getElementsByTagName('select')[0];
+    var mySourceSelect = videoPlayerDiv.getElementsByTagName('select')[0];
     var myVideo = videoPlayerDiv.getElementsByTagName('video')[0];
     var myStatus = videoPlayerDiv.querySelector('.rfvideostatus');
     var myPlaylistItems = videoPlayerDiv.getElementsByTagName('li');
@@ -65,11 +69,11 @@
       _loop(i);
     }
 
-    if (mySelectQ) {
+    if (mySourceSelect) {
       var mySourceGroups = [];
 
-      for (var _i = 0; _i < mySelectQ.length; ++_i) {
-        var opts = mySelectQ.options[_i].value.split(';');
+      for (var _i = 0; _i < mySourceSelect.length; ++_i) {
+        var opts = mySourceSelect.options[_i].value.split(';');
 
         var group = {
           'suffix': opts[0],
@@ -81,8 +85,8 @@
         mySourceGroups[_i] = group;
       }
 
-      mySelectQ.addEventListener('change', function () {
-        selChangeQ(mySelectQ, myVideoDiv, myPlaylistDiv, myVideo, mySourceGroups);
+      mySourceSelect.addEventListener('change', function () {
+        sourceSelectChanged(mySourceSelect, myVideoDiv, myPlaylistDiv, myVideo, mySourceGroups);
       });
     }
 
