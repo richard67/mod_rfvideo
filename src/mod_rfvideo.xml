@@ -2,12 +2,12 @@
 <extension type="module" client="site" method="upgrade">
 	<name>mod_rfvideo</name>
 	<author>Richard Fath</author>
-	<creationDate>2004-07</creationDate>
+	<creationDate>2022-09</creationDate>
 	<copyright>(C) 2022 Richard Fath</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>admin@richard-fath.de</authorEmail>
 	<authorUrl>www.richard-fath.de</authorUrl>
-	<version>1.0.1</version>
+	<version>1.0.2-dev</version>
 	<description>MOD_RFVIDEO_XML_DESCRIPTION</description>
 	<namespace path="src">Joomla\Module\RfVideo</namespace>
 	<media destination="mod_rfvideo" folder="media">
