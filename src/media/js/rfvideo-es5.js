@@ -19,18 +19,20 @@
     elVideo.pause();
     var suffixOld = sourceGroups[elSelect.getAttribute('data-selected')].suffix;
     var suffixNew = sourceGroups[elSelect.options.selectedIndex].suffix;
-    elVideoDiv.classList.remove('rfvideo' + suffixOld);
-    elPlaylistDiv.classList.remove('rfvideoplaylist' + suffixOld);
-    elVideoDiv.classList.add('rfvideo' + suffixNew);
-    elPlaylistDiv.classList.add('rfvideoplaylist' + suffixNew);
+    elVideoDiv.classList.remove("rfvideo" + suffixOld);
+    elPlaylistDiv.classList.remove("rfvideoplaylist" + suffixOld);
+    elVideoDiv.classList.add("rfvideo" + suffixNew);
+    elPlaylistDiv.classList.add("rfvideoplaylist" + suffixNew);
     elVideo.width = sourceGroups[elSelect.options.selectedIndex].width;
     elVideo.height = sourceGroups[elSelect.options.selectedIndex].height;
-    elVideo.poster = '/' + sourceGroups[elSelect.options.selectedIndex].image;
-    sourceGroups[elSelect.options.selectedIndex].sources.forEach(function (source) {
+    elVideo.poster = "/" + sourceGroups[elSelect.options.selectedIndex].image;
+    sourceGroups[elSelect.options.selectedIndex].sources.every(function (source) {
       if (source.substr(source.lastIndexOf('.')) === vidExt) {
-        elVideo.src = '/' + source;
+        elVideo.src = "/" + source;
         return false;
       }
+
+      return true;
     });
     elSelect.setAttribute('data-selected', elSelect.options.selectedIndex);
     elVideo.load();
@@ -69,22 +71,22 @@
       });
     };
 
-    for (var i = 0; i < myPlaylistItems.length; ++i) {
+    for (var i = 0; i < myPlaylistItems.length; i += 1) {
       _loop(i);
     }
 
     if (mySourceSelect) {
       var mySourceGroups = [];
 
-      for (var _i = 0; _i < mySourceSelect.length; ++_i) {
+      for (var _i = 0; _i < mySourceSelect.length; _i += 1) {
         var opts = mySourceSelect.options[_i].value.split(';');
 
         var group = {
-          'suffix': opts[0],
-          'height': opts[1],
-          'width': opts[2],
-          'image': opts[3],
-          'sources': opts.slice(4)
+          suffix: opts[0],
+          height: opts[1],
+          width: opts[2],
+          image: opts[3],
+          sources: opts.slice(4)
         };
         mySourceGroups[_i] = group;
       }
