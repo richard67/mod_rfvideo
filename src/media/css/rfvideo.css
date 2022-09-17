@@ -1,145 +1,145 @@
 div.rfvidqseldiv {
-	width: 100%;
-	display: block;
-	margin: 1rem 0;
-	padding: 0;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 1rem 0;
 }
 div.rfvidqseldiv label {
-	width: 100%;
-	display: block;
-	font-weight: bolder;
+  display: block;
+  width: 100%;
+  font-weight: bolder;
 }
 div.rfvidqseldiv select {
-	width: auto;
+  width: auto;
 }
 div.rfvideo {
-	position: relative;
-	background-color: #000;
-	color: #fff;
-	float: left;
-	margin: 0 0 9px;
-	padding: 0;
+  position: relative;
+  float: left;
+  padding: 0;
+  margin: 0 0 9px;
+  color: #fff;
+  background-color: #000;
 }
 div.rfvideo480p {
-	height: 480px;
-	width: 640px;
+  width: 640px;
+  height: 480px;
 }
 div.rfvideo360p {
-	height: 360px;
-	width: 480px;
+  width: 480px;
+  height: 360px;
 }
 div.rfvideostatus {
-	position: absolute;
-	display: block;
-	top: 0;
-	left: 0;
-	margin: 9px;
-	padding: 0;
-	z-index: 9999;
-	font-family: var(--body-font-family);
-	font-size: 13px;
-	text-decoration: none;
-	color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: block;
+  padding: 0;
+  margin: 9px;
+  font-family: var(--body-font-family);
+  font-size: 13px;
+  color: #fff;
+  text-decoration: none;
 }
 div.rfvideoplaylist {
-	background-color: #222;
-	float: none;
-	display: block;
-	overflow: auto;
-	margin: 0 0 9px;
-	padding: 0;
+  display: block;
+  float: none;
+  padding: 0;
+  margin: 0 0 9px;
+  overflow: auto;
+  background-color: #222;
 }
 div.rfvideoplaylist480p {
-	height: 480px;
-	width: 350px;
+  width: 350px;
+  height: 480px;
 }
 div.rfvideoplaylist360p {
-	height: 360px;
-	width: 350px;
+  width: 350px;
+  height: 360px;
 }
-div.rfvideoplaylist ul {
-	margin: 10px 0 0 15px;
-	padding: 0;
+ul.rfvideoplaylist-list {
+  padding: 0;
+  margin: 10px 0 0 15px;
 }
-div.rfvideoplaylist li {
-	list-style: none outside none;
-	height: 30px;
-	margin: 0;
-	padding: 0;
+li.rfvideoplaylist-item {
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  list-style: none outside none;
 }
-div.rfvideoplaylist li a {
-	font-family: var(--body-font-family);
-	font-size: 13px;
-	text-decoration: none;
-	color: #bbb !important;
+li.rfvideoplaylist-item a {
+  font-family: var(--body-font-family);
+  font-size: 13px;
+  color: #bbb !important;
+  text-decoration: none;
 }
-div.rfvideoplaylist li a:hover,
-div.rfvideoplaylist li a:focus {
-	cursor: pointer;
-	color: #fff !important;
-	text-decoration: underline !important;
+li.rfvideoplaylist-item a:hover,
+li.rfvideoplaylist-item li a:focus {
+  color: #fff !important;
+  text-decoration: underline !important;
+  cursor: pointer;
 }
 @media (max-width: 1090px) {
-	div.rfvideo480p {
-		margin: 0;
-	}
-	div.rfvideoplaylist480p {
-		height: 240px;
-		width: 640px;
-		display: inline-block;
-	}
+  div.rfvideo480p {
+    margin: 0;
+  }
+  div.rfvideoplaylist480p {
+    display: inline-block;
+    width: 640px;
+    height: 240px;
+  }
 }
 @media (max-width: 930px) {
-	div.rfvideo360p {
-		margin: 0;
-	}
-	div.rfvideoplaylist360p {
-		height: 180px;
-		width: 480px;
-		display: inline-block;
-	}
+  div.rfvideo360p {
+    margin: 0;
+  }
+  div.rfvideoplaylist360p {
+    display: inline-block;
+    width: 480px;
+    height: 180px;
+  }
 }
 @media (max-width: 699px) {
-	div.rfvideo480p {
-		height: auto;
-		width: 100%;
-		margin: 0;
-	}
-	div.rfvideo480p video {
-		height: auto;
-		width: 100%;
-	}
-	div.rfvideoplaylist480p {
-		height: 180px;
-		width: 100%;
-		display: inline-block;
-	}
+  div.rfvideo480p {
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+  div.rfvideo480p video {
+    width: 100%;
+    height: auto;
+  }
+  div.rfvideoplaylist480p {
+    display: inline-block;
+    width: 100%;
+    height: 180px;
+  }
 }
 @media (max-width: 539px) {
-	div.rfvideo360p {
-		height: auto;
-		width: 100%;
-		margin: 0;
-	}
-	div.rfvideo360p video {
-		height: auto;
-		width: 100%;
-	}
-	div.rfvideoplaylist360p {
-		height: 180px;
-		width: 100%;
-		display: inline-block;
-	}
+  div.rfvideo360p {
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+  div.rfvideo360p video {
+    width: 100%;
+    height: auto;
+  }
+  div.rfvideoplaylist360p {
+    display: inline-block;
+    width: 100%;
+    height: 180px;
+  }
 }
 @media (max-width: 419px) {
-	div.rfvideoplaylist ul {
-		margin: 8px 0 0 12px;
-		padding: 0;
-	}
-	div.rfvideoplaylist li {
-		height: 24px;
-	}
-	div.rfvideoplaylist li a {
-		font-size: 10px;
-	}
+  ul.rfvideoplaylist-list {
+    padding: 0;
+    margin: 8px 0 0 12px;
+  }
+  li.rfvideoplaylist-item {
+    height: 24px;
+  }
+  li.rfvideoplaylist-item a {
+    font-size: 10px;
+  }
 }

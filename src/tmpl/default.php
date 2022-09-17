@@ -63,13 +63,13 @@ Text::script('MOD_RFVIDEO_SEEKING');
 </div>
 <?php if (!empty($playlist)) : ?>
 <div class="rfvideoplaylist rfvideoplaylist<?php echo $sourceGroups->source_groups0->suffix; ?>">
-<ul>
+<ul class="rfvideoplaylist-list">
 <?php if ($playlist->playlist0->position > 0) : ?>
-<li><a data-start="0"><?php echo Text::_('MOD_RFVIDEO_PLAYLIST_START'); ?></a></li>
+<li class="rfvideoplaylist-item"><a data-start="0"><?php echo Text::_('MOD_RFVIDEO_PLAYLIST_START'); ?></a></li>
 <?php endif; ?>
 <?php $count = 0; ?>
 <?php foreach ($playlist as $item) : ?>
-<li><a data-start="<?php echo $item->position; ?>"><?php echo ++$count; ?>. <?php echo $item->title; ?></a></li>
+<li class="rfvideoplaylist-item"><a data-start="<?php echo $item->position; ?>"><?php echo ++$count; ?>. <?php echo $item->title; ?></a></li>
 <?php endforeach; ?>
 </ul>
 </div>
