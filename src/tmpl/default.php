@@ -51,7 +51,7 @@ Text::script('MOD_RFVIDEO_SEEKING');
 <video title="<?php echo $title; ?>"<?php echo $videoAttribs; ?>>
 <?php if ($useSources) : ?>
 <?php foreach ($sourceGroups->source_groups0->sources as $source) : ?>
-<source src="<?php echo $source->file; ?>" type="<?php echo $source->type; ?>" />
+<source src="<?php echo HTMLHelper::_('cleanImageURL', $source->file)->url; ?>" type="<?php echo $source->type; ?>" />
 <?php endforeach; ?>
 <?php endif; ?>
 <?php echo Text::_('MOD_RFVIDEO_NO_BROWSER_SUPPORT'); ?>
