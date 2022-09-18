@@ -37,7 +37,7 @@ div.rfvideostatus {
   z-index: 9999;
   display: block;
   padding: 0;
-  margin: 9px;
+  margin: 0.5rem;
   color: #fff;
   text-decoration: none;
 }
@@ -58,7 +58,7 @@ div.rfvideoplaylist360p {
 }
 ul.rfvideoplaylist-list {
   padding: 0;
-  margin: 10px 0 0 15px;
+  margin: 0.5rem 0 0 1rem;
 }
 li.rfvideoplaylist-item {
   min-height: 2.5rem;
