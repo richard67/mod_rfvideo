@@ -239,6 +239,14 @@
 
 			<fieldset name="playlist" label="MOD_RFVIDEO_PLAYLIST_FIELDSET_LABEL">
 				<field
+					name="playlist_min_width"
+					type="text"
+					default="320"
+					label="MOD_RFVIDEO_PLAYLIST_MIN_WIDTH_LABEL"
+					description="MOD_RFVIDEO_PLAYLIST_MIN_WIDTH_DESCR"
+					filter="integer"
+				/>
+				<field
 					name="playlist"
 					type="subform"
 					label="MOD_RFVIDEO_PLAYLIST_LABEL"

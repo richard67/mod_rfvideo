@@ -9,7 +9,7 @@
     throw new Error('Joomla API was not properly initialized');
   }
 
-  function sourceSelectChanged(elSelect, elVideoDiv, elPlaylistDiv, elVideo, sourceGroups) {
+  function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistDiv, elVideo, sourceGroups, playlistMinWidth) {
     var vidExt = elVideo.currentSrc.substr(elVideo.currentSrc.lastIndexOf('.'));
 
     if (vidExt === '') {
@@ -17,12 +17,9 @@
     }
 
     elVideo.pause();
-    var suffixOld = sourceGroups[elSelect.getAttribute('data-selected')].suffix;
-    var suffixNew = sourceGroups[elSelect.options.selectedIndex].suffix;
-    elVideoDiv.classList.remove("rfvideo" + suffixOld);
-    elPlaylistDiv.classList.remove("rfvideoplaylist" + suffixOld);
-    elVideoDiv.classList.add("rfvideo" + suffixNew);
-    elPlaylistDiv.classList.add("rfvideoplaylist" + suffixNew);
+    elPlayerDiv.style = "max-width: " + (parseInt(sourceGroups[elSelect.options.selectedIndex].width, 10) + playlistMinWidth) + "px;";
+    elVideoDiv.style = "max-width: " + sourceGroups[elSelect.options.selectedIndex].width + "px; max-height: " + sourceGroups[elSelect.options.selectedIndex].height + "px;";
+    elPlaylistDiv.style = "width: auto; min-width: " + playlistMinWidth + "px; max-width: " + sourceGroups[elSelect.options.selectedIndex].width + "px; max-height: " + sourceGroups[elSelect.options.selectedIndex].height + "px;";
     elVideo.width = sourceGroups[elSelect.options.selectedIndex].width;
     elVideo.height = sourceGroups[elSelect.options.selectedIndex].height;
     elVideo.poster = "/" + sourceGroups[elSelect.options.selectedIndex].image;
@@ -55,6 +52,7 @@
   allVideoPlayerDivs.forEach(function (videoPlayerDiv) {
     var myVideoDiv = videoPlayerDiv.querySelector('.rfvideo');
     var myPlaylistDiv = videoPlayerDiv.querySelector('.rfvideoplaylist');
+    var myPlaylistMinWidth = parseInt(myPlaylistDiv.getAttribute('data-min-width'), 10);
     var mySourceSelect = videoPlayerDiv.getElementsByTagName('select')[0];
     var myVideo = videoPlayerDiv.getElementsByTagName('video')[0];
     var myStatus = videoPlayerDiv.querySelector('.rfvideostatus');
@@ -92,7 +90,7 @@
       }
 
       mySourceSelect.addEventListener('change', function () {
-        sourceSelectChanged(mySourceSelect, myVideoDiv, myPlaylistDiv, myVideo, mySourceGroups);
+        sourceSelectChanged(mySourceSelect, videoPlayerDiv, myVideoDiv, myPlaylistDiv, myVideo, mySourceGroups, myPlaylistMinWidth);
       });
     }
 

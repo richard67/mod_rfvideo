@@ -6,7 +6,7 @@ if (!Joomla) {
   throw new Error('Joomla API was not properly initialized');
 }
 
-function sourceSelectChanged(elSelect, elVideoDiv, elPlaylistDiv, elVideo, sourceGroups) {
+function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistDiv, elVideo, sourceGroups, playlistMinWidth) {
   const vidExt = elVideo.currentSrc.substr(elVideo.currentSrc.lastIndexOf('.'));
 
   if (vidExt === '') {
@@ -14,12 +14,9 @@ function sourceSelectChanged(elSelect, elVideoDiv, elPlaylistDiv, elVideo, sourc
   }
 
   elVideo.pause();
-  const suffixOld = sourceGroups[elSelect.getAttribute('data-selected')].suffix;
-  const suffixNew = sourceGroups[elSelect.options.selectedIndex].suffix;
-  elVideoDiv.classList.remove(`rfvideo${suffixOld}`);
-  elPlaylistDiv.classList.remove(`rfvideoplaylist${suffixOld}`);
-  elVideoDiv.classList.add(`rfvideo${suffixNew}`);
-  elPlaylistDiv.classList.add(`rfvideoplaylist${suffixNew}`);
+  elPlayerDiv.style = `max-width: ${parseInt(sourceGroups[elSelect.options.selectedIndex].width, 10) + playlistMinWidth}px;`;
+  elVideoDiv.style = `max-width: ${sourceGroups[elSelect.options.selectedIndex].width}px; max-height: ${sourceGroups[elSelect.options.selectedIndex].height}px;`;
+  elPlaylistDiv.style = `width: auto; min-width: ${playlistMinWidth}px; max-width: ${sourceGroups[elSelect.options.selectedIndex].width}px; max-height: ${sourceGroups[elSelect.options.selectedIndex].height}px;`;
   elVideo.width = sourceGroups[elSelect.options.selectedIndex].width;
   elVideo.height = sourceGroups[elSelect.options.selectedIndex].height;
   elVideo.poster = `/${sourceGroups[elSelect.options.selectedIndex].image}`;
@@ -52,6 +49,7 @@ const allVideoPlayerDivs = document.querySelectorAll('div.rfvideoplayer');
 allVideoPlayerDivs.forEach(videoPlayerDiv => {
   const myVideoDiv = videoPlayerDiv.querySelector('.rfvideo');
   const myPlaylistDiv = videoPlayerDiv.querySelector('.rfvideoplaylist');
+  const myPlaylistMinWidth = parseInt(myPlaylistDiv.getAttribute('data-min-width'), 10);
   const mySourceSelect = videoPlayerDiv.getElementsByTagName('select')[0];
   const myVideo = videoPlayerDiv.getElementsByTagName('video')[0];
   const myStatus = videoPlayerDiv.querySelector('.rfvideostatus');
@@ -84,7 +82,7 @@ allVideoPlayerDivs.forEach(videoPlayerDiv => {
     }
 
     mySourceSelect.addEventListener('change', () => {
-      sourceSelectChanged(mySourceSelect, myVideoDiv, myPlaylistDiv, myVideo, mySourceGroups);
+      sourceSelectChanged(mySourceSelect, videoPlayerDiv, myVideoDiv, myPlaylistDiv, myVideo, mySourceGroups, myPlaylistMinWidth);
     });
   }
 

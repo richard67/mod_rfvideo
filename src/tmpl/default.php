@@ -33,22 +33,23 @@ if ($stylesheet !== '-1') {
     $wa->registerAndUseStyle('mod_rfvideo', 'mod_rfvideo/' . $stylesheet);
 }
 
-$title        = Text::_($params->get('title'));
-$downloadLink = $params->get('download_link', '');
-$playlist     = $params->get('playlist');
-$useSources   = strpos($videoAttribs, ' src="') === false;
+$title            = Text::_($params->get('title'));
+$playlistMinWidth = $params->get('playlist_min_width', 320);
+$downloadLink     = $params->get('download_link', '');
+$playlist         = $params->get('playlist');
+$useSources       = strpos($videoAttribs, ' src="') === false;
 
 // Load JS language strings
 Text::script('MOD_RFVIDEO_LOADING');
 Text::script('MOD_RFVIDEO_SEEKING');
 
 ?>
-<div class="rfvideoplayer">
+<div class="rfvideoplayer" style="max-width: <?php echo ($sourceGroups->source_groups0->width + $playlistMinWidth); ?>px;">
 <?php if ($params->get('select_position', 'none') === 'top') : ?>
 <?php echo str_replace('{moduleId}', $module->id, $selectHtml); ?>
 <?php endif; ?>
-<div class="rfvideo rfvideo<?php echo $sourceGroups->source_groups0->suffix; ?>">
-<video title="<?php echo $title; ?>"<?php echo $videoAttribs; ?>>
+<div class="rfvideo" style="max-width: <?php echo $sourceGroups->source_groups0->width; ?>px; max-height: <?php echo $sourceGroups->source_groups0->height; ?>px; width: 100%; height: 100%">
+<video title="<?php echo $title; ?>"<?php echo $videoAttribs; ?> style="width: 100%; height: auto;">
 <?php if ($useSources) : ?>
 <?php foreach ($sourceGroups->source_groups0->sources as $source) : ?>
 <source src="<?php echo HTMLHelper::_('cleanImageURL', $source->file)->url; ?>" type="<?php echo $source->type; ?>" />
@@ -62,7 +63,7 @@ Text::script('MOD_RFVIDEO_SEEKING');
 <div class="rfvideostatus"> </div>
 </div>
 <?php if (!empty($playlist)) : ?>
-<div class="rfvideoplaylist rfvideoplaylist<?php echo $sourceGroups->source_groups0->suffix; ?>">
+<div class="rfvideoplaylist" data-min-width="<?php echo ($playlistMinWidth); ?>" style="width: auto; min-width: <?php echo ($playlistMinWidth); ?>px; max-width: <?php echo $sourceGroups->source_groups0->width; ?>px; height: auto; max-height: <?php echo $sourceGroups->source_groups0->height; ?>px;">
 <ul class="rfvideoplaylist-list">
 <?php if ($playlist->playlist0->position > 0) : ?>
 <li class="rfvideoplaylist-item"><a data-start="0"><?php echo Text::_('MOD_RFVIDEO_PLAYLIST_START'); ?></a></li>
