@@ -14,9 +14,9 @@ function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistDiv, e
   }
 
   elVideo.pause();
-  elPlayerDiv.style = `max-width: ${parseInt(sourceGroups[elSelect.options.selectedIndex].width, 10) + playlistMinWidth}px;`;
-  elVideoDiv.style = `max-width: ${sourceGroups[elSelect.options.selectedIndex].width}px; max-height: ${sourceGroups[elSelect.options.selectedIndex].height}px;`;
-  elPlaylistDiv.style = `width: auto; min-width: ${playlistMinWidth}px; max-width: ${sourceGroups[elSelect.options.selectedIndex].width}px; max-height: ${sourceGroups[elSelect.options.selectedIndex].height}px;`;
+  elPlayerDiv.style = `max-width: ${sourceGroups[elSelect.options.selectedIndex].totalwmax};`;
+  elPlaylistDiv.style = `min-width: ${sourceGroups[elSelect.options.selectedIndex].plistwmin}; max-width: ${sourceGroups[elSelect.options.selectedIndex].width}px; max-height: ${sourceGroups[elSelect.options.selectedIndex].height}px;`;
+  elVideoDiv.style = `max-width: 100%; max-height: ${sourceGroups[elSelect.options.selectedIndex].height}px;`;
   elVideo.width = sourceGroups[elSelect.options.selectedIndex].width;
   elVideo.height = sourceGroups[elSelect.options.selectedIndex].height;
   elVideo.poster = `/${sourceGroups[elSelect.options.selectedIndex].image}`;
@@ -74,8 +74,10 @@ allVideoPlayerDivs.forEach((videoPlayerDiv) => {
         suffix: opts[0],
         height: opts[1],
         width: opts[2],
-        image: opts[3],
-        sources: opts.slice(4),
+        totalwmax: opts[3],
+        plistwmin: opts[4],
+        image:  opts[5],
+        sources: opts.slice(6),
       };
       mySourceGroups[i] = group;
     }

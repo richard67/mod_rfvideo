@@ -48,7 +48,7 @@ Text::script('MOD_RFVIDEO_SEEKING');
 <?php if ($params->get('select_position', 'none') === 'top') : ?>
 <?php echo str_replace('{moduleId}', $module->id, $selectHtml); ?>
 <?php endif; ?>
-<div class="rfvideo" style="max-width: <?php echo $sourceGroups->source_groups0->width; ?>px; max-height: <?php echo $sourceGroups->source_groups0->height; ?>px; width: 100%; height: 100%">
+<div class="rfvideo" style="max-width: 100%; max-height: <?php echo $sourceGroups->source_groups0->height; ?>px">
 <video title="<?php echo $title; ?>"<?php echo $videoAttribs; ?> style="width: 100%; height: auto;">
 <?php if ($useSources) : ?>
 <?php foreach ($sourceGroups->source_groups0->sources as $source) : ?>
@@ -63,7 +63,7 @@ Text::script('MOD_RFVIDEO_SEEKING');
 <div class="rfvideostatus"> </div>
 </div>
 <?php if (!empty($playlist)) : ?>
-<div class="rfvideoplaylist" data-min-width="<?php echo ($playlistMinWidth); ?>" style="width: auto; min-width: <?php echo ($playlistMinWidth); ?>px; max-width: <?php echo $sourceGroups->source_groups0->width; ?>px; height: auto; max-height: <?php echo $sourceGroups->source_groups0->height; ?>px;">
+<div class="rfvideoplaylist" style="min-width: <?php echo floor($playlistMinWidth / ($sourceGroups->source_groups0->width + $playlistMinWidth) * 100.0); ?>%; max-width: <?php echo $sourceGroups->source_groups0->width; ?>px; max-height: <?php echo $sourceGroups->source_groups0->height; ?>px;">
 <ul class="rfvideoplaylist-list">
 <?php if ($playlist->playlist0->position > 0) : ?>
 <li class="rfvideoplaylist-item"><a data-start="0"><?php echo Text::_('MOD_RFVIDEO_PLAYLIST_START'); ?></a></li>

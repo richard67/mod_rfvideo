@@ -42,10 +42,11 @@ class RfVideoHelper
             return '';
         }
 
-        $descr  = $params->get('select_description', '');
-        $label  = $params->get('select_label', '');
-        $size   = $params->get('select_size', '1');
-        $count  = 0;
+        $playlistMinWidth = $params->get('playlist_min_width', 320);
+        $descr            = $params->get('select_description', '');
+        $label            = $params->get('select_label', '');
+        $size             = $params->get('select_size', '1');
+        $count            = 0;
 
         $selectHtmlStart = '<div class="rfvidqseldiv rfvidqseldiv-' . $selectPosition . '"><form>';
 
@@ -58,7 +59,10 @@ class RfVideoHelper
         $selectHtmlEnd = '" data-selected="0">';
 
         foreach ($sourceGroups as $sourceGroup) {
-            $option = $sourceGroup->suffix . ';' . $sourceGroup->height . ';' . $sourceGroup->width . ';' . HTMLHelper::_('cleanImageURL', $sourceGroup->image)->url;
+            $option = $sourceGroup->suffix . ';' . $sourceGroup->height . ';' . $sourceGroup->width . ';'
+            . ($sourceGroup->width + $playlistMinWidth) . 'px;'
+            . floor($playlistMinWidth / ($sourceGroup->width + $playlistMinWidth) * 100.0) . '%;'
+            . HTMLHelper::_('cleanImageURL', $sourceGroup->image)->url;
 
             foreach ($sourceGroup->sources as $source) {
                 $option .= ';' . HTMLHelper::_('cleanImageURL', $source->file)->url;
