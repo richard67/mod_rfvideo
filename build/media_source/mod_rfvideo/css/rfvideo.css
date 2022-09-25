@@ -12,9 +12,6 @@ div.rfvidqseldiv label {
 div.rfvidqseldiv select {
   width: auto;
 }
-div.rfvideoplayer {
-  margin-bottom: 1rem;
-}
 div.rfvideo {
   position: relative;
   float: left;
