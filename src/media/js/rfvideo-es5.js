@@ -168,14 +168,13 @@
         var opts = mySourceSelect.options[_i2].value.split(';');
 
         var group = {
-          suffix: opts[0],
-          height: opts[1],
-          width: opts[2],
-          totalhmax: opts[3],
-          totalwmax: opts[4],
-          plistwmin: opts[5],
-          image: opts[6],
-          sources: opts.slice(7)
+          height: opts[0],
+          width: opts[1],
+          totalhmax: opts[2],
+          totalwmax: opts[3],
+          plistwmin: opts[4],
+          image: opts[5],
+          sources: opts.slice(6)
         };
         mySourceGroups[_i2] = group;
       }

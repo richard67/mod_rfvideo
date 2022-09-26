@@ -187,12 +187,6 @@
 							label="MOD_RFVIDEO_DESCRIPTION_LABEL"
 						/>
 						<field
-							name="suffix"
-							type="text"
-							label="MOD_RFVIDEO_SUFFIX_LABEL"
-							required="true"
-						/>
-						<field
 							name="height"
 							type="text"
 							label="MOD_RFVIDEO_HEIGHT_LABEL"

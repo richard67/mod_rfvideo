@@ -60,7 +60,7 @@ class RfVideoHelper
         $selectHtmlEnd = '" data-selected="0">';
 
         foreach ($sourceGroups as $sourceGroup) {
-            $option = $sourceGroup->suffix . ';' . $sourceGroup->height . ';' . $sourceGroup->width . ';'
+            $option = $sourceGroup->height . ';' . $sourceGroup->width . ';'
             . ($sourceGroup->height + $playlistMinHeight) . 'px;'
             . ($sourceGroup->width + $playlistMinWidth) . 'px;'
             . floor($playlistMinWidth / ($sourceGroup->width + $playlistMinWidth) * 100.0) . '%;'
