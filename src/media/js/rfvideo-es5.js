@@ -9,7 +9,7 @@
     throw new Error('Joomla API was not properly initialized');
   }
 
-  function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistDiv, elVideo, sourceGroups, playlistMinWidth) {
+  function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistWrapper, elPlaylistDiv, elVideo, sourceGroups, playlistMinH, playlistMinW) {
     var vidExt = elVideo.currentSrc.substr(elVideo.currentSrc.lastIndexOf('.'));
 
     if (vidExt === '') {
@@ -17,9 +17,13 @@
     }
 
     elVideo.pause();
-    elPlayerDiv.style = "max-width: " + (parseInt(sourceGroups[elSelect.options.selectedIndex].width, 10) + playlistMinWidth) + "px;";
-    elVideoDiv.style = "max-width: " + sourceGroups[elSelect.options.selectedIndex].width + "px; max-height: " + sourceGroups[elSelect.options.selectedIndex].height + "px;";
-    elPlaylistDiv.style = "width: auto; min-width: " + playlistMinWidth + "px; max-width: " + sourceGroups[elSelect.options.selectedIndex].width + "px; max-height: " + sourceGroups[elSelect.options.selectedIndex].height + "px;";
+    elPlayerDiv.style = "max-width: " + sourceGroups[elSelect.options.selectedIndex].totalwmax + "; max-height: " + sourceGroups[elSelect.options.selectedIndex].totalhmax + ";";
+    elVideoDiv.style = "max-width: " + sourceGroups[elSelect.options.selectedIndex].width + "px; max-height: " + sourceGroups[elSelect.options.selectedIndex].height + "px";
+    elPlaylistWrapper.style.flex = "1 1 " + playlistMinW + "px";
+    elPlaylistWrapper.style.minWidth = "" + sourceGroups[elSelect.options.selectedIndex].plistwmin;
+    elPlaylistWrapper.style.maxWidth = sourceGroups[elSelect.options.selectedIndex].width + "px";
+    elPlaylistDiv.style.flex = "1 1 " + playlistMinH + "px";
+    elPlaylistDiv.style.maxHeight = sourceGroups[elSelect.options.selectedIndex].height + "px";
     elVideo.width = sourceGroups[elSelect.options.selectedIndex].width;
     elVideo.height = sourceGroups[elSelect.options.selectedIndex].height;
     elVideo.poster = "/" + sourceGroups[elSelect.options.selectedIndex].image;
@@ -40,6 +44,28 @@
     el.play();
   }
 
+  function updchapter(elVideo, elStatus, playlist, txtSeeking) {
+    if (elVideo.seeking) {
+      elStatus.innerHTML = txtSeeking;
+    } else if (elVideo.currentTime <= 0) {
+      elStatus.innerHTML = '';
+    } else {
+      var tmpTitle = '';
+      var i = playlist.length - 1;
+
+      while (i >= 0) {
+        if (elVideo.currentTime >= playlist[i].start) {
+          tmpTitle = playlist[i].title;
+          break;
+        }
+
+        i -= 1;
+      }
+
+      elStatus.innerHTML = tmpTitle;
+    }
+  }
+
   function setstatus(el, txt) {
     el.innerHTML = txt;
   }
@@ -48,74 +74,116 @@
     if (el.innerHTML === txt) el.innerHTML = '';
   }
 
-  var allVideoPlayerDivs = document.querySelectorAll('div.rfvideoplayer');
-  allVideoPlayerDivs.forEach(function (videoPlayerDiv) {
-    var myVideoDiv = videoPlayerDiv.querySelector('.rfvideo');
-    var myPlaylistDiv = videoPlayerDiv.querySelector('.rfvideoplaylist');
+  var allVideoPlayerWrappers = document.querySelectorAll('div.rfvideoplayerwrapper');
+  allVideoPlayerWrappers.forEach(function (videoPlayerWrapper) {
+    var myVideoPlayerDiv = videoPlayerWrapper.querySelector('.rfvideoplayer');
+    var myVideoDiv = videoPlayerWrapper.querySelector('.rfvideo');
+    var myPlaylistWrapper = videoPlayerWrapper.querySelector('.rfvideoplaylistwrapper');
+    var myPlaylistDiv = videoPlayerWrapper.querySelector('.rfvideoplaylist');
+    var myPlaylistMinHeight = parseInt(myPlaylistDiv.getAttribute('data-min-height'), 10);
     var myPlaylistMinWidth = parseInt(myPlaylistDiv.getAttribute('data-min-width'), 10);
-    var mySourceSelect = videoPlayerDiv.getElementsByTagName('select')[0];
-    var myVideo = videoPlayerDiv.getElementsByTagName('video')[0];
-    var myStatus = videoPlayerDiv.querySelector('.rfvideostatus');
-    var myPlaylistItems = videoPlayerDiv.getElementsByTagName('li');
+    var mySourceSelect = videoPlayerWrapper.getElementsByTagName('select')[0];
+    var myVideo = videoPlayerWrapper.getElementsByTagName('video')[0];
+    var myStatus = videoPlayerWrapper.querySelector('.rfvideostatus');
+    var showStatus = myStatus ? !!myStatus.getAttribute('data-show-status') : false;
+    var showTitle = myStatus ? !!myStatus.getAttribute('data-show-title') : false;
+    var myPlaylistItems = videoPlayerWrapper.getElementsByTagName('li');
+    var textSeeking = '';
 
-    var textLoading = Joomla.Text._('MOD_RFVIDEO_LOADING').replace('&hellip;', "\u2026");
+    if (showStatus) {
+      var textLoading = Joomla.Text._('MOD_RFVIDEO_LOADING').replace('&hellip;', "\u2026");
 
-    var textSeeking = Joomla.Text._('MOD_RFVIDEO_SEEKING').replace('&hellip;', "\u2026");
-
-    var _loop = function _loop(i) {
-      var myPlaylistItem = myPlaylistItems[i].getElementsByTagName('a')[0];
-      myPlaylistItem.addEventListener('click', function () {
-        seek(myVideo, parseFloat(myPlaylistItem.getAttribute('data-start')));
+      textSeeking = Joomla.Text._('MOD_RFVIDEO_SEEKING').replace('&hellip;', "\u2026");
+      myVideo.addEventListener('loadstart', function () {
+        if (myVideo.networkState === 2) {
+          setstatus(myStatus, textLoading);
+        }
       });
-    };
+      myVideo.addEventListener('waiting', function () {
+        if (myVideo.networkState === 2) {
+          setstatus(myStatus, textLoading);
+        }
+      });
+      myVideo.addEventListener('canplay', function () {
+        clearstatus(myStatus, textLoading);
+      });
+      myVideo.addEventListener('playing', function () {
+        clearstatus(myStatus, textLoading);
+      });
+      myVideo.addEventListener('seeking', function () {
+        setstatus(myStatus, textSeeking);
+      });
+      myVideo.addEventListener('seeked', function () {
+        clearstatus(myStatus, textSeeking);
+      });
+    }
 
-    for (var i = 0; i < myPlaylistItems.length; i += 1) {
-      _loop(i);
+    if (showTitle) {
+      var myPlaylist = [];
+
+      var _loop = function _loop(i) {
+        var myPlaylistItem = myPlaylistItems[i].getElementsByTagName('a')[0];
+        var item = {
+          start: parseFloat(myPlaylistItem.getAttribute('data-start')),
+          title: myPlaylistItem.innerHTML
+        };
+        myPlaylist[i] = item;
+        myPlaylistItem.addEventListener('click', function () {
+          seek(myVideo, item.start);
+        });
+      };
+
+      for (var i = 0; i < myPlaylistItems.length; i += 1) {
+        _loop(i);
+      }
+
+      myPlaylist[myPlaylistItems.length] = {
+        start: myVideo.duration,
+        title: ''
+      };
+      myVideo.addEventListener('durationchange', function () {
+        myPlaylist[myPlaylistItems.length].start = myVideo.duration;
+      });
+      myVideo.addEventListener('timeupdate', function () {
+        updchapter(myVideo, myStatus, myPlaylist, textSeeking);
+      });
+    } else {
+      var _loop2 = function _loop2(_i) {
+        var myPlaylistItem = myPlaylistItems[_i].getElementsByTagName('a')[0];
+
+        myPlaylistItem.addEventListener('click', function () {
+          seek(myVideo, parseFloat(myPlaylistItem.getAttribute('data-start')));
+        });
+      };
+
+      for (var _i = 0; _i < myPlaylistItems.length; _i += 1) {
+        _loop2(_i);
+      }
     }
 
     if (mySourceSelect) {
       var mySourceGroups = [];
 
-      for (var _i = 0; _i < mySourceSelect.length; _i += 1) {
-        var opts = mySourceSelect.options[_i].value.split(';');
+      for (var _i2 = 0; _i2 < mySourceSelect.length; _i2 += 1) {
+        var opts = mySourceSelect.options[_i2].value.split(';');
 
         var group = {
           suffix: opts[0],
           height: opts[1],
           width: opts[2],
-          image: opts[3],
-          sources: opts.slice(4)
+          totalhmax: opts[3],
+          totalwmax: opts[4],
+          plistwmin: opts[5],
+          image: opts[6],
+          sources: opts.slice(7)
         };
-        mySourceGroups[_i] = group;
+        mySourceGroups[_i2] = group;
       }
 
       mySourceSelect.addEventListener('change', function () {
-        sourceSelectChanged(mySourceSelect, videoPlayerDiv, myVideoDiv, myPlaylistDiv, myVideo, mySourceGroups, myPlaylistMinWidth);
+        sourceSelectChanged(mySourceSelect, myVideoPlayerDiv, myVideoDiv, myPlaylistWrapper, myPlaylistDiv, myVideo, mySourceGroups, myPlaylistMinHeight, myPlaylistMinWidth);
       });
     }
-
-    myVideo.addEventListener('loadstart', function () {
-      if (myVideo.networkState === 2) {
-        setstatus(myStatus, textLoading);
-      }
-    });
-    myVideo.addEventListener('waiting', function () {
-      if (myVideo.networkState === 2) {
-        setstatus(myStatus, textLoading);
-      }
-    });
-    myVideo.addEventListener('canplay', function () {
-      clearstatus(myStatus, textLoading);
-    });
-    myVideo.addEventListener('playing', function () {
-      clearstatus(myStatus, textLoading);
-    });
-    myVideo.addEventListener('seeking', function () {
-      setstatus(myStatus, textSeeking);
-    });
-    myVideo.addEventListener('seeked', function () {
-      clearstatus(myStatus, textSeeking);
-    });
   });
 
 })();

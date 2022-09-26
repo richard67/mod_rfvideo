@@ -42,11 +42,12 @@ class RfVideoHelper
             return '';
         }
 
-        $playlistMinWidth = $params->get('playlist_min_width', 320);
-        $descr            = $params->get('select_description', '');
-        $label            = $params->get('select_label', '');
-        $size             = $params->get('select_size', '1');
-        $count            = 0;
+        $playlistMinHeight = $params->get('playlist_min_height', 120);
+        $playlistMinWidth  = $params->get('playlist_min_width', 320);
+        $descr             = $params->get('select_description', '');
+        $label             = $params->get('select_label', '');
+        $size              = $params->get('select_size', '1');
+        $count             = 0;
 
         $selectHtmlStart = '<div class="rfvidqseldiv rfvidqseldiv-' . $selectPosition . '"><form>';
 
@@ -60,6 +61,7 @@ class RfVideoHelper
 
         foreach ($sourceGroups as $sourceGroup) {
             $option = $sourceGroup->suffix . ';' . $sourceGroup->height . ';' . $sourceGroup->width . ';'
+            . ($sourceGroup->height + $playlistMinHeight) . 'px;'
             . ($sourceGroup->width + $playlistMinWidth) . 'px;'
             . floor($playlistMinWidth / ($sourceGroup->width + $playlistMinWidth) * 100.0) . '%;'
             . HTMLHelper::_('cleanImageURL', $sourceGroup->image)->url;
@@ -103,7 +105,7 @@ class RfVideoHelper
         $videoAttribs = ' preload="' . $params->get('preload') . '"';
 
         foreach (['autoplay', 'controls', 'loop', 'muted'] as $attribute) {
-            $videoAttribs .= $params->get($attribute) ? ' ' . $attribute .'="' . $attribute .'"' : '';
+            $videoAttribs .= $params->get($attribute) ? ' ' . $attribute . '="' . $attribute . '"' : '';
         }
 
         $videoAttribs .= $sourceGroups->source_groups0->image ? ' poster="' . HTMLHelper::_('cleanImageURL', $sourceGroups->source_groups0->image)->url . '"' : '';
@@ -112,7 +114,7 @@ class RfVideoHelper
 
         // Use src attribute if there is only one source file
         if (!(isset($sourceGroups->source_groups1) || isset($sourceGroups->source_groups0->sources->sources1))) {
-            $videoAttribs .= ' src="' . HTMLHelper::_('cleanImageURL', $sourceGroups->source_groups0->sources->sources0->file)->url .'"';
+            $videoAttribs .= ' src="' . HTMLHelper::_('cleanImageURL', $sourceGroups->source_groups0->sources->sources0->file)->url . '"';
         }
 
         return $videoAttribs;

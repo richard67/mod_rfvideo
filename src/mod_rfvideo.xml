@@ -105,6 +105,17 @@
 					description="MOD_RFVIDEO_DOWNLOAD_LINK_DESCR"
 				/>
 				<field
+					name="show_status"
+					type="radio"
+					label="MOD_RFVIDEO_SHOW_STATUS_LABEL"
+					description="MOD_RFVIDEO_SHOW_STATUS_DESCR"
+					layout="joomla.form.field.radio.switcher"
+					default="0"
+					>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
 					name="stylesheet"
 					type="filelist"
 					label="MOD_RFVIDEO_STYLESHEET_LABEL"
@@ -239,6 +250,14 @@
 
 			<fieldset name="playlist" label="MOD_RFVIDEO_PLAYLIST_FIELDSET_LABEL">
 				<field
+					name="playlist_min_height"
+					type="text"
+					default="120"
+					label="MOD_RFVIDEO_PLAYLIST_MIN_HEIGHT_LABEL"
+					description="MOD_RFVIDEO_PLAYLIST_MIN_HEIGHT_DESCR"
+					filter="integer"
+				/>
+				<field
 					name="playlist_min_width"
 					type="text"
 					default="320"
@@ -246,6 +265,17 @@
 					description="MOD_RFVIDEO_PLAYLIST_MIN_WIDTH_DESCR"
 					filter="integer"
 				/>
+				<field
+					name="show_playlist_item"
+					type="radio"
+					label="MOD_RFVIDEO_SHOW_ACTUAL_TITLE_LABEL"
+					description="MOD_RFVIDEO_SHOW_ACTUAL_TITLE_DESCR"
+					layout="joomla.form.field.radio.switcher"
+					default="0"
+					>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
 				<field
 					name="playlist"
 					type="subform"

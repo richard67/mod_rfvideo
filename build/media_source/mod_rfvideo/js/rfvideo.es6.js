@@ -6,7 +6,7 @@ if (!Joomla) {
   throw new Error('Joomla API was not properly initialized');
 }
 
-function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistDiv, elVideo, sourceGroups, playlistMinWidth) {
+function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistWrapper, elPlaylistDiv, elVideo, sourceGroups, playlistMinH, playlistMinW) {
   const vidExt = elVideo.currentSrc.substr(elVideo.currentSrc.lastIndexOf('.'));
 
   if (vidExt === '') {
@@ -14,9 +14,13 @@ function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistDiv, e
   }
 
   elVideo.pause();
-  elPlayerDiv.style = `max-width: ${sourceGroups[elSelect.options.selectedIndex].totalwmax};`;
-  elPlaylistDiv.style = `min-width: ${sourceGroups[elSelect.options.selectedIndex].plistwmin}; max-width: ${sourceGroups[elSelect.options.selectedIndex].width}px; max-height: ${sourceGroups[elSelect.options.selectedIndex].height}px;`;
-  elVideoDiv.style = `max-width: 100%; max-height: ${sourceGroups[elSelect.options.selectedIndex].height}px;`;
+  elPlayerDiv.style = `max-width: ${sourceGroups[elSelect.options.selectedIndex].totalwmax}; max-height: ${sourceGroups[elSelect.options.selectedIndex].totalhmax};`;
+  elVideoDiv.style = `max-width: ${sourceGroups[elSelect.options.selectedIndex].width}px; max-height: ${sourceGroups[elSelect.options.selectedIndex].height}px`;
+  elPlaylistWrapper.style.flex = `1 1 ${playlistMinW}px`;
+  elPlaylistWrapper.style.minWidth = `${sourceGroups[elSelect.options.selectedIndex].plistwmin}`;
+  elPlaylistWrapper.style.maxWidth = `${sourceGroups[elSelect.options.selectedIndex].width}px`;
+  elPlaylistDiv.style.flex = `1 1 ${playlistMinH}px`;
+  elPlaylistDiv.style.maxHeight = `${sourceGroups[elSelect.options.selectedIndex].height}px`;
   elVideo.width = sourceGroups[elSelect.options.selectedIndex].width;
   elVideo.height = sourceGroups[elSelect.options.selectedIndex].height;
   elVideo.poster = `/${sourceGroups[elSelect.options.selectedIndex].image}`;
@@ -36,6 +40,28 @@ function seek(el, pos) {
   el.play();
 }
 
+function updchapter(elVideo, elStatus, playlist, txtSeeking) {
+  if (elVideo.seeking) {
+    elStatus.innerHTML = txtSeeking;
+  } else if (elVideo.currentTime <= 0) {
+    elStatus.innerHTML = '';
+  } else {
+    let tmpTitle = '';
+    let i = playlist.length - 1;
+
+    while (i >= 0) {
+      if (elVideo.currentTime >= playlist[i].start) {
+        tmpTitle = playlist[i].title;
+        break;
+      }
+
+      i -= 1;
+    }
+
+    elStatus.innerHTML = tmpTitle;
+  }
+}
+
 function setstatus(el, txt) {
   el.innerHTML = txt;
 }
@@ -44,25 +70,84 @@ function clearstatus(el, txt) {
   if (el.innerHTML === txt) el.innerHTML = '';
 }
 
-const allVideoPlayerDivs = document.querySelectorAll('div.rfvideoplayer');
-allVideoPlayerDivs.forEach((videoPlayerDiv) => {
-  const myVideoDiv = videoPlayerDiv.querySelector('.rfvideo');
-  const myPlaylistDiv = videoPlayerDiv.querySelector('.rfvideoplaylist');
+const allVideoPlayerWrappers = document.querySelectorAll('div.rfvideoplayerwrapper');
+allVideoPlayerWrappers.forEach((videoPlayerWrapper) => {
+  const myVideoPlayerDiv = videoPlayerWrapper.querySelector('.rfvideoplayer');
+  const myVideoDiv = videoPlayerWrapper.querySelector('.rfvideo');
+  const myPlaylistWrapper = videoPlayerWrapper.querySelector('.rfvideoplaylistwrapper');
+  const myPlaylistDiv = videoPlayerWrapper.querySelector('.rfvideoplaylist');
+  const myPlaylistMinHeight = parseInt(myPlaylistDiv.getAttribute('data-min-height'), 10);
   const myPlaylistMinWidth = parseInt(myPlaylistDiv.getAttribute('data-min-width'), 10);
-  const mySourceSelect = videoPlayerDiv.getElementsByTagName('select')[0];
-  const myVideo = videoPlayerDiv.getElementsByTagName('video')[0];
-  const myStatus = videoPlayerDiv.querySelector('.rfvideostatus');
-  const myPlaylistItems = videoPlayerDiv.getElementsByTagName('li');
+  const mySourceSelect = videoPlayerWrapper.getElementsByTagName('select')[0];
+  const myVideo = videoPlayerWrapper.getElementsByTagName('video')[0];
+  const myStatus = videoPlayerWrapper.querySelector('.rfvideostatus');
+  const showStatus = myStatus ? (!!myStatus.getAttribute('data-show-status')) : false;
+  const showTitle = myStatus ? (!!myStatus.getAttribute('data-show-title')) : false;
+  const myPlaylistItems = videoPlayerWrapper.getElementsByTagName('li');
 
-  const textLoading = Joomla.Text._('MOD_RFVIDEO_LOADING').replace('&hellip;', '\u{2026}');
+  let textSeeking = '';
 
-  const textSeeking = Joomla.Text._('MOD_RFVIDEO_SEEKING').replace('&hellip;', '\u{2026}');
+  if (showStatus) {
+    const textLoading = Joomla.Text._('MOD_RFVIDEO_LOADING').replace('&hellip;', '\u{2026}');
 
-  for (let i = 0; i < myPlaylistItems.length; i += 1) {
-    const myPlaylistItem = myPlaylistItems[i].getElementsByTagName('a')[0];
-    myPlaylistItem.addEventListener('click', () => {
-      seek(myVideo, parseFloat(myPlaylistItem.getAttribute('data-start')));
+    textSeeking = Joomla.Text._('MOD_RFVIDEO_SEEKING').replace('&hellip;', '\u{2026}');
+
+    myVideo.addEventListener('loadstart', () => {
+      if (myVideo.networkState === 2) {
+        setstatus(myStatus, textLoading);
+      }
     });
+    myVideo.addEventListener('waiting', () => {
+      if (myVideo.networkState === 2) {
+        setstatus(myStatus, textLoading);
+      }
+    });
+    myVideo.addEventListener('canplay', () => {
+      clearstatus(myStatus, textLoading);
+    });
+    myVideo.addEventListener('playing', () => {
+      clearstatus(myStatus, textLoading);
+    });
+    myVideo.addEventListener('seeking', () => {
+      setstatus(myStatus, textSeeking);
+    });
+    myVideo.addEventListener('seeked', () => {
+      clearstatus(myStatus, textSeeking);
+    });
+  }
+
+  if (showTitle) {
+    const myPlaylist = [];
+
+    for (let i = 0; i < myPlaylistItems.length; i += 1) {
+      const myPlaylistItem = myPlaylistItems[i].getElementsByTagName('a')[0];
+      const item = {
+        start: parseFloat(myPlaylistItem.getAttribute('data-start')),
+        title: myPlaylistItem.innerHTML,
+      };
+      myPlaylist[i] = item;
+      myPlaylistItem.addEventListener('click', () => {
+        seek(myVideo, item.start);
+      });
+    }
+
+    myPlaylist[myPlaylistItems.length] = {
+      start: myVideo.duration,
+      title: '',
+    };
+    myVideo.addEventListener('durationchange', () => {
+      myPlaylist[myPlaylistItems.length].start = myVideo.duration;
+    });
+    myVideo.addEventListener('timeupdate', () => {
+      updchapter(myVideo, myStatus, myPlaylist, textSeeking);
+    });
+  } else {
+    for (let i = 0; i < myPlaylistItems.length; i += 1) {
+      const myPlaylistItem = myPlaylistItems[i].getElementsByTagName('a')[0];
+      myPlaylistItem.addEventListener('click', () => {
+        seek(myVideo, parseFloat(myPlaylistItem.getAttribute('data-start')));
+      });
+    }
   }
 
   if (mySourceSelect) {
@@ -74,39 +159,27 @@ allVideoPlayerDivs.forEach((videoPlayerDiv) => {
         suffix: opts[0],
         height: opts[1],
         width: opts[2],
-        totalwmax: opts[3],
-        plistwmin: opts[4],
-        image:  opts[5],
-        sources: opts.slice(6),
+        totalhmax: opts[3],
+        totalwmax: opts[4],
+        plistwmin: opts[5],
+        image: opts[6],
+        sources: opts.slice(7),
       };
       mySourceGroups[i] = group;
     }
 
     mySourceSelect.addEventListener('change', () => {
-      sourceSelectChanged(mySourceSelect, videoPlayerDiv, myVideoDiv, myPlaylistDiv, myVideo, mySourceGroups, myPlaylistMinWidth);
+      sourceSelectChanged(
+        mySourceSelect,
+        myVideoPlayerDiv,
+        myVideoDiv,
+        myPlaylistWrapper,
+        myPlaylistDiv,
+        myVideo,
+        mySourceGroups,
+        myPlaylistMinHeight,
+        myPlaylistMinWidth,
+      );
     });
   }
-
-  myVideo.addEventListener('loadstart', () => {
-    if (myVideo.networkState === 2) {
-      setstatus(myStatus, textLoading);
-    }
-  });
-  myVideo.addEventListener('waiting', () => {
-    if (myVideo.networkState === 2) {
-      setstatus(myStatus, textLoading);
-    }
-  });
-  myVideo.addEventListener('canplay', () => {
-    clearstatus(myStatus, textLoading);
-  });
-  myVideo.addEventListener('playing', () => {
-    clearstatus(myStatus, textLoading);
-  });
-  myVideo.addEventListener('seeking', () => {
-    setstatus(myStatus, textSeeking);
-  });
-  myVideo.addEventListener('seeked', () => {
-    clearstatus(myStatus, textSeeking);
-  });
 });

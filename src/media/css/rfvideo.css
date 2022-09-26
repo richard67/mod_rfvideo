@@ -1,3 +1,9 @@
+div.rfvideoplayerwrapper {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
 div.rfvidqseldiv {
   display: block;
   width: 100%;
@@ -13,11 +19,13 @@ div.rfvidqseldiv select {
   width: auto;
 }
 div.rfvideoplayer {
-  margin-bottom: 1rem;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
 }
 div.rfvideo {
   position: relative;
-  float: left;
+  flex: 0 1 auto;
   padding: 0;
   color: #fff;
   background-color: #000;
@@ -30,28 +38,40 @@ div.rfvideostatus {
   display: block;
   padding: 0;
   margin: .5rem;
-  color: #fff;
   text-decoration: none;
 }
-div.rfvideoplaylist {
-  display: block;
-  float: none;
+div.rfvideoplaylistwrapper {
+  display: flex;
+  flex: 1 1 320px;
+  flex-flow: column nowrap;
+  align-items: stretch;
   padding: 0;
-  overflow: auto;
   background-color: #222;
 }
-ul.rfvideoplaylist-list {
+div.rfvideoplaylist {
+  flex: 1 1 120px;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  padding-inline-start: 1rem;
+  padding-inline-end: 0;
+  overflow-y: scroll;
+  color: #bbb !important;
+  background-color: #222;
+}
+ol.rfvideoplaylist-list {
+  display: block;
   padding: 0;
-  margin: .5rem 0 0 1rem;
+  margin: 0;
 }
 li.rfvideoplaylist-item {
   min-height: 2.5rem;
   padding: 0;
-  margin: 0;
-  list-style: none outside none;
+  list-style: decimal inside none;
+}
+li.rfvideoplaylist-start {
+  list-style: none inside none;
 }
 li.rfvideoplaylist-item a {
-  color: #bbb !important;
   text-decoration: none;
 }
 li.rfvideoplaylist-item a:hover,
