@@ -68,7 +68,7 @@ class RfVideoHelper
                 $option .= ';' . HTMLHelper::_('cleanImageURL', $source->file)->url;
             }
 
-            $selectHtmlEnd .= '<option value="' . $option . '">' . ($sourceGroup->description ? Text::_($sourceGroup->description) : $sourceGroup->suffix) . '</option>';
+            $selectHtmlEnd .= '<option value="' . $option . '">' . ($sourceGroup->description ? Text::_($sourceGroup->description) : $sourceGroup->width . ' x ' . $sourceGroup->height) . '</option>';
             $count += 1;
         }
 
