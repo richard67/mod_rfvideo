@@ -163,6 +163,7 @@
 
     if (mySourceSelect) {
       var mySourceGroups = [];
+      mySourceSelect.value = mySourceSelect.options[0].value;
 
       for (var _i2 = 0; _i2 < mySourceSelect.length; _i2 += 1) {
         var opts = mySourceSelect.options[_i2].value.split(';');

@@ -151,6 +151,7 @@ allVideoPlayerWrappers.forEach(videoPlayerWrapper => {
 
   if (mySourceSelect) {
     const mySourceGroups = [];
+    mySourceSelect.value = mySourceSelect.options[0].value;
 
     for (let i = 0; i < mySourceSelect.length; i += 1) {
       const opts = mySourceSelect.options[i].value.split(';');
