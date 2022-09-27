@@ -17,10 +17,9 @@
     }
 
     elVideo.pause();
-    elPlayerDiv.style = "max-width: " + sourceGroups[elSelect.options.selectedIndex].totalwmax + "; max-height: " + sourceGroups[elSelect.options.selectedIndex].totalhmax + ";";
-    elVideoDiv.style = "max-width: " + sourceGroups[elSelect.options.selectedIndex].width + "px; max-height: " + sourceGroups[elSelect.options.selectedIndex].height + "px";
+    elPlayerDiv.style = "max-width: " + sourceGroups[elSelect.options.selectedIndex].totalwmax + ";";
+    elVideoDiv.style.flex = "0 1 " + sourceGroups[elSelect.options.selectedIndex].width + "px";
     elPlaylistWrapper.style.flex = "1 1 " + playlistMinW + "px";
-    elPlaylistWrapper.style.minWidth = "" + sourceGroups[elSelect.options.selectedIndex].plistwmin;
     elPlaylistWrapper.style.maxWidth = sourceGroups[elSelect.options.selectedIndex].width + "px";
     elPlaylistDiv.style.flex = "1 1 " + playlistMinH + "px";
     elPlaylistDiv.style.maxHeight = sourceGroups[elSelect.options.selectedIndex].height + "px";
@@ -171,11 +170,9 @@
         var group = {
           height: opts[0],
           width: opts[1],
-          totalhmax: opts[2],
-          totalwmax: opts[3],
-          plistwmin: opts[4],
-          image: opts[5],
-          sources: opts.slice(6)
+          totalwmax: opts[2],
+          image: opts[3],
+          sources: opts.slice(4)
         };
         mySourceGroups[_i2] = group;
       }

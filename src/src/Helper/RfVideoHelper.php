@@ -61,9 +61,7 @@ class RfVideoHelper
 
         foreach ($sourceGroups as $sourceGroup) {
             $option = $sourceGroup->height . ';' . $sourceGroup->width . ';'
-            . ($sourceGroup->height + $playlistMinHeight) . 'px;'
             . ($sourceGroup->width + $playlistMinWidth) . 'px;'
-            . floor($playlistMinWidth / ($sourceGroup->width + $playlistMinWidth) * 100.0) . '%;'
             . HTMLHelper::_('cleanImageURL', $sourceGroup->image)->url;
 
             foreach ($sourceGroup->sources as $source) {

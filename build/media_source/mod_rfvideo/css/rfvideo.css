@@ -25,10 +25,13 @@ div.rfvideoplayer {
 }
 div.rfvideo {
   position: relative;
-  flex: 0 1 auto;
   padding: 0;
   color: #fff;
   background-color: #000;
+}
+div.rfvideo video {
+  width: 100%;
+  height: auto;
 }
 div.rfvideostatus {
   position: absolute;
@@ -42,14 +45,15 @@ div.rfvideostatus {
 }
 div.rfvideoplaylistwrapper {
   display: flex;
-  flex: 1 1 320px;
   flex-flow: column nowrap;
   align-items: stretch;
   padding: 0;
   background-color: #222;
 }
+div.rfvideoplaylisttop {
+  height: 1.5rem;
+}
 div.rfvideoplaylist {
-  flex: 1 1 120px;
   padding-top: .5rem;
   padding-bottom: .5rem;
   padding-inline-start: 1rem;
