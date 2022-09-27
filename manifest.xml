@@ -17,4 +17,21 @@
 		</tags>
 		<targetplatform name="joomla" version="4.[0123]" />
 	</update>
+	<update>
+		<name>Richard Fath's video player module</name>
+		<description>Richard Fath's video player module for Joomla! CMS</description>
+		<element>mod_rfvideo</element>
+		<type>module</type>
+		<version>2.0.0-alpha1</version>
+		<client>site</client>
+		<infourl title="Richard Fath's Video Player Module">https://github.com/richard67/mod_rfvideo/blob/main/README.md</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/richard67/mod_rfvideo/releases/download/2.0.0-alpha1/mod_rfvideo_2.0.0-alpha1.zip</downloadurl>
+		</downloads>
+		<sha512>caf3538494725c73d9de36932c7985dd3c2ef5bb6dc2d39b954294fa93b2e333e88bd3c4d4a0bce243b469700a9f15fa2c65b8ff180ecc392de3dfe3ca5a5bc4</sha512>
+		<tags>
+			<tag>alpha</tag>
+		</tags>
+		<targetplatform name="joomla" version="4.[0123]" />
+	</update>
 </updates>
