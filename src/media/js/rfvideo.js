@@ -118,7 +118,7 @@ allVideoPlayerWrappers.forEach(videoPlayerWrapper => {
     const myPlaylist = [];
 
     for (let i = 0; i < myPlaylistItems.length; i += 1) {
-      const myPlaylistItem = myPlaylistItems[i].getElementsByTagName('a')[0];
+      const myPlaylistItem = myPlaylistItems[i].getElementsByTagName('button')[0];
       const item = {
         start: parseFloat(myPlaylistItem.getAttribute('data-start')),
         title: myPlaylistItem.innerHTML
@@ -141,7 +141,7 @@ allVideoPlayerWrappers.forEach(videoPlayerWrapper => {
     });
   } else {
     for (let i = 0; i < myPlaylistItems.length; i += 1) {
-      const myPlaylistItem = myPlaylistItems[i].getElementsByTagName('a')[0];
+      const myPlaylistItem = myPlaylistItems[i].getElementsByTagName('button')[0];
       myPlaylistItem.addEventListener('click', () => {
         seek(myVideo, parseFloat(myPlaylistItem.getAttribute('data-start')));
       });

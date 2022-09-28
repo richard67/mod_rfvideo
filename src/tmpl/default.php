@@ -74,12 +74,12 @@ Text::script('MOD_RFVIDEO_SEEKING');
             <div class="rfvideoplaylist" style="flex: 1 1 <?php echo $playlistMinHeight; ?>px; max-height: <?php echo $sourceGroups->source_groups0->height; ?>px;">
                 <?php if ($playlist->playlist0->position > 0) : ?>
                 <ol class="rfvideoplaylist-list" start="0">
-                    <li class="rfvideoplaylist-item rfvideoplaylist-start"><a data-start="0"><?php echo Text::_('MOD_RFVIDEO_PLAYLIST_START'); ?></a></li>
+                    <li class="rfvideoplaylist-item rfvideoplaylist-start"><button data-start="0"><?php echo Text::_('MOD_RFVIDEO_PLAYLIST_START'); ?></button></li>
                 <?php else : ?>
                 <ol class="rfvideoplaylist-list">
                 <?php endif; ?>
                     <?php foreach ($playlist as $item) : ?>
-                    <li class="rfvideoplaylist-item"><a data-start="<?php echo $item->position; ?>"><?php echo $item->title; ?></a></li>
+                    <li class="rfvideoplaylist-item"><button data-start="<?php echo $item->position; ?>"><?php echo $item->title; ?></button></li>
                     <?php endforeach; ?>
                 </ol>
             </div>

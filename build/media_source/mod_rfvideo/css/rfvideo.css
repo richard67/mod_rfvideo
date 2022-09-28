@@ -54,32 +54,39 @@ div.rfvideoplaylisttop {
   height: 1.5rem;
 }
 div.rfvideoplaylist {
-  padding-top: .5rem;
-  padding-bottom: .5rem;
-  padding-inline-start: 1rem;
-  padding-inline-end: 0;
+  padding: .5rem;
   overflow-y: scroll;
   color: #bbb !important;
   background-color: #222;
 }
 ol.rfvideoplaylist-list {
   display: block;
-  padding: 0;
+  padding-left: 2rem;
   margin: 0;
 }
 li.rfvideoplaylist-item {
   min-height: 2.5rem;
   padding: 0;
-  list-style: decimal inside none;
+  list-style: decimal outside none;
 }
 li.rfvideoplaylist-start {
-  list-style: none inside none;
+  list-style: none;
 }
-li.rfvideoplaylist-item a {
+li.rfvideoplaylist-item button {
+  padding: 0;
+  overflow: hidden;
+  color: #bbb !important;
+  text-align: left;
   text-decoration: none;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  user-select: none;
+  background: none;
+  border: none;
+  box-shadow: none;
 }
-li.rfvideoplaylist-item a:hover,
-li.rfvideoplaylist-item li a:focus {
+li.rfvideoplaylist-item button:hover,
+li.rfvideoplaylist-item button:focus {
   color: #fff !important;
   text-decoration: underline !important;
   cursor: pointer;
