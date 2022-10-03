@@ -38,8 +38,8 @@ $showStatus        = $params->get('show_status', 0);
 $playlistMinHeight = $params->get('playlist_min_height', 120);
 $playlistMinWidth  = $params->get('playlist_min_width', 320);
 $downloadLink      = $params->get('download_link', '');
-$playlist          = $params->get('playlist');
 $showPlaylistItem  = $params->get('show_playlist_item', 0);
+$showItemDuration  = $params->get('show_item_duration', 0);
 $useSources        = strpos($videoAttribs, ' src="') === false;
 
 // Load JS language strings
@@ -72,14 +72,22 @@ Text::script('MOD_RFVIDEO_SEEKING');
         <div class="rfvideoplaylistwrapper" data-min-height="<?php echo $playlistMinHeight; ?>" data-min-width="<?php echo $playlistMinWidth; ?>" style="flex: 1 1 <?php echo $playlistMinWidth; ?>px; max-width: <?php echo $sourceGroups->source_groups0->width; ?>px;">
             <div class="rfvideoplaylisttop"> </div>
             <div class="rfvideoplaylist" style="flex: 1 1 <?php echo $playlistMinHeight; ?>px; max-height: <?php echo $sourceGroups->source_groups0->height; ?>px;">
-                <?php if ($playlist->playlist0->position > 0) : ?>
+                <?php if (array_values($playlist)[0]->position > 0) : ?>
                 <ol class="rfvideoplaylist-list" start="0">
                     <li class="rfvideoplaylist-item rfvideoplaylist-start"><button data-start="0"><?php echo Text::_('MOD_RFVIDEO_PLAYLIST_START'); ?></button></li>
                 <?php else : ?>
                 <ol class="rfvideoplaylist-list">
                 <?php endif; ?>
                     <?php foreach ($playlist as $item) : ?>
-                    <li class="rfvideoplaylist-item"><button data-start="<?php echo $item->position; ?>"><?php echo $item->title; ?></button></li>
+                    <li class="rfvideoplaylist-item">
+                        <button data-start="<?php echo $item->position; ?>"><?php echo $item->title; ?>
+                        <?php if ($showItemDuration && !empty($item->duration)) : ?>
+                        <span class="rfvideo-duration">
+                            <?php echo preg_replace('/^0[0]+' . Text::_('MOD_RFVIDEO_PLAYLIST_TIME_SEPARATOR') . '/', '', \DateTime::createFromFormat('U', round($item->duration))->format(Text::_('MOD_RFVIDEO_PLAYLIST_TIME_FORMAT'))); ?>
+                        </span>
+                        <?php endif; ?>
+                        </button>
+                    </li>
                     <?php endforeach; ?>
                 </ol>
             </div>
