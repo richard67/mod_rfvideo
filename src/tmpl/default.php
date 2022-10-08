@@ -42,6 +42,9 @@ $showPlaylistItem  = $params->get('show_playlist_item', 0);
 $showItemDuration  = $params->get('show_item_duration', 0);
 $useSources        = strpos($videoAttribs, ' src="') === false;
 
+$playlistMinHeight = $playlistMinHeight > $sourceGroups->source_groups0->height ? $sourceGroups->source_groups0->height : $playlistMinHeight;
+$playlistMinWidth  = $playlistMinWidth > $sourceGroups->source_groups0->width ? $sourceGroups->source_groups0->width : $playlistMinWidth;
+
 // Load JS language strings
 Text::script('MOD_RFVIDEO_LOADING');
 Text::script('MOD_RFVIDEO_SEEKING');
