@@ -36,12 +36,24 @@ if ($stylesheet !== '-1') {
 
 $title             = Text::_($module->title);
 $showStatus        = $params->get('show_status', 0);
-$playlistMinWidth  = empty($playlist) ? 0 : $params->get('playlist_min_width', 320);
-$playlistMinWidth  = $playlistMinWidth > $sourceGroups->source_groups0->width ? $sourceGroups->source_groups0->width : $playlistMinWidth;
 $downloadLink      = $params->get('download_link', '');
 $showPlaylistItem  = $params->get('show_playlist_item', 0);
 $showItemDuration  = $params->get('show_item_duration', 0);
 $useSources        = strpos($videoAttribs, ' src="') === false;
+
+if (empty($playlist)) {
+    $playlistMinWidth  = 0;
+    $playlistMinWidth  = 0;
+} else {
+    $playlistMinWidth  = $params->get('playlist_min_width', 320);
+    $playlistMinHeight = $params->get('playlist_min_height', 120);
+
+    // Limit to smallest video size
+    foreach ($sourceGroups as $sourceGroup) {
+        $playlistMinWidth  = $playlistMinWidth > $sourceGroup->width ? $sourceGroup->width : $playlistMinWidth;
+        $playlistMinHeight = $playlistMinHeight > $sourceGroup->height ? $sourceGroup->height : $playlistMinHeight;
+    }
+}
 
 // Load JS language strings
 Text::script('MOD_RFVIDEO_LOADING');

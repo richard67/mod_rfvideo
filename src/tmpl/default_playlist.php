@@ -11,9 +11,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
 
-$playlistMinHeight = $params->get('playlist_min_height', 120);
-$playlistMinHeight = $playlistMinHeight > $sourceGroups->source_groups0->height ? $sourceGroups->source_groups0->height : $playlistMinHeight;
-
 ?>
 <div class="rfvideoplaylistwrapper" data-min-height="<?php echo $playlistMinHeight; ?>" data-min-width="<?php echo $playlistMinWidth; ?>" style="flex: 1 1 <?php echo $playlistMinWidth; ?>px; max-width: <?php echo $sourceGroups->source_groups0->width; ?>px;">
     <div class="rfvideoplaylisttop"> </div>
