@@ -44,8 +44,8 @@ class RfVideoHelper
             return '';
         }
 
-        $playlistMinHeight = $params->get('playlist_min_height', 120);
-        $playlistMinWidth  = $params->get('playlist_min_width', 320);
+        $playlistPosition  = $params->get('playlist_position', 'side2');
+        $playlistMinWidth  = in_array($params->get('playlist_position', 'side2'), ['side1', 'side2']) ?  $params->get('playlist_min_width', 320) : 0;
         $descr             = $params->get('select_description', '');
         $label             = $params->get('select_label', '');
         $size              = $params->get('select_size', '1');
@@ -168,7 +168,7 @@ class RfVideoHelper
                 $item->position = round($start - $base, 3);
                 $item->duration = round($end - $start, 3);
                 $item->title    = '';
-            } elseIf (!empty($item) && !strpos($line, 'WEBVTT')) {
+            } elseif (!empty($item) && !strpos($line, 'WEBVTT')) {
                 $item->title = $line;
                 $playlist[] = $item;
                 $item = null;

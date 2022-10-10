@@ -16,8 +16,12 @@ function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistWrappe
   elVideo.pause();
   elPlayerDiv.style = `max-width: ${sourceGroups[elSelect.options.selectedIndex].totalwmax};`;
   elVideoDiv.style.flex = `0 1 ${sourceGroups[elSelect.options.selectedIndex].width}px`;
-  elPlaylistWrapper.style.flex = `1 1 ${playlistMinW}px`;
-  elPlaylistWrapper.style.maxWidth = `${sourceGroups[elSelect.options.selectedIndex].width}px`;
+  if (playlistMinW > 0) {
+    elPlaylistWrapper.style.flex = `1 1 ${playlistMinW}px`;
+    elPlaylistWrapper.style.maxWidth = `${sourceGroups[elSelect.options.selectedIndex].width}px`;
+  } else {
+    elPlaylistWrapper.style.flex = `0 1 ${sourceGroups[elSelect.options.selectedIndex].width}px`;
+  }
   elPlaylistDiv.style.flex = `1 1 ${playlistMinH}px`;
   elPlaylistDiv.style.maxHeight = `${sourceGroups[elSelect.options.selectedIndex].height}px`;
   elVideo.width = sourceGroups[elSelect.options.selectedIndex].width;
@@ -35,7 +39,7 @@ function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistWrappe
 }
 
 function seek(el, pos) {
-  el.currentTime = pos.toFixed(1);
+  el.currentTime = pos;
   el.play();
 }
 
@@ -74,9 +78,9 @@ allVideoPlayerWrappers.forEach((videoPlayerWrapper) => {
   const myVideoPlayerDiv = videoPlayerWrapper.querySelector('.rfvideoplayer');
   const myVideoDiv = videoPlayerWrapper.querySelector('.rfvideo');
   const myPlaylistWrapper = videoPlayerWrapper.querySelector('.rfvideoplaylistwrapper');
+  const myPlaylistMinHeight = parseInt(myPlaylistWrapper.getAttribute('data-min-height'), 10);
+  const myPlaylistMinWidth = parseInt(myPlaylistWrapper.getAttribute('data-min-width'), 10);
   const myPlaylistDiv = videoPlayerWrapper.querySelector('.rfvideoplaylist');
-  const myPlaylistMinHeight = parseInt(myPlaylistDiv.getAttribute('data-min-height'), 10);
-  const myPlaylistMinWidth = parseInt(myPlaylistDiv.getAttribute('data-min-width'), 10);
   const mySourceSelect = videoPlayerWrapper.getElementsByTagName('select')[0];
   const myVideo = videoPlayerWrapper.getElementsByTagName('video')[0];
   const myStatus = videoPlayerWrapper.querySelector('.rfvideostatus');
@@ -121,7 +125,7 @@ allVideoPlayerWrappers.forEach((videoPlayerWrapper) => {
     for (let i = 0; i < myPlaylistItems.length; i += 1) {
       const myPlaylistItem = myPlaylistItems[i].getElementsByTagName('button')[0];
       const item = {
-        start: parseFloat(myPlaylistItem.getAttribute('data-start')),
+        start: parseFloat(myPlaylistItem.getAttribute('data-start')).toFixed(1),
         title: myPlaylistItem.innerHTML,
       };
       myPlaylist[i] = item;
@@ -144,7 +148,7 @@ allVideoPlayerWrappers.forEach((videoPlayerWrapper) => {
     for (let i = 0; i < myPlaylistItems.length; i += 1) {
       const myPlaylistItem = myPlaylistItems[i].getElementsByTagName('button')[0];
       myPlaylistItem.addEventListener('click', () => {
-        seek(myVideo, parseFloat(myPlaylistItem.getAttribute('data-start')));
+        seek(myVideo, parseFloat(myPlaylistItem.getAttribute('data-start')).toFixed(1));
       });
     }
   }

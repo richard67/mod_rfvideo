@@ -36,6 +36,7 @@ if ($stylesheet !== '-1') {
 
 $title             = Text::_($module->title);
 $showStatus        = $params->get('show_status', 0);
+$playlistPosition  = $params->get('playlist_position', 'side2');
 $downloadLink      = $params->get('download_link', '');
 $showPlaylistItem  = $params->get('show_playlist_item', 0);
 $showItemDuration  = $params->get('show_item_duration', 0);
@@ -64,8 +65,8 @@ Text::script('MOD_RFVIDEO_SEEKING');
 <?php if ($params->get('select_position', 'none') === 'top') : ?>
     <?php echo str_replace('{moduleId}', $module->id, $selectHtml); ?>
 <?php endif; ?>
-    <div class="rfvideoplayer" style="max-width: <?php echo ($sourceGroups->source_groups0->width + $playlistMinWidth); ?>px;">
-        <div class="rfvideo" style="flex: 0 1 <?php echo $sourceGroups->source_groups0->width; ?>px;">
+    <div class="rfvideoplayer" style="max-width: <?php echo (in_array($playlistPosition, ['side1', 'side2']) ? $sourceGroups->source_groups0->width + $playlistMinWidth : $sourceGroups->source_groups0->width); ?>px;">
+        <div class="rfvideo <?php echo 'rfvideoplaylist-' . $playlistPosition; ?>" style="flex: 0 1 <?php echo $sourceGroups->source_groups0->width; ?>px;">
             <video title="<?php echo $title; ?>"<?php echo $videoAttribs; ?>>
             <?php if ($useSources) : ?>
                 <?php foreach ($sourceGroups->source_groups0->sources as $source) : ?>
@@ -82,7 +83,7 @@ Text::script('MOD_RFVIDEO_SEEKING');
             <?php endif; ?>
         </div>
         <?php if (!empty($playlist)) : ?>
-        <?php require ModuleHelper::getLayoutPath('mod_rfvideo', 'default_playlist'); ?>
+            <?php require ModuleHelper::getLayoutPath('mod_rfvideo', 'default_playlist'); ?>
         <?php endif; ?>
     </div>
 <?php if ($params->get('select_position', 'none') === 'bottom') : ?>

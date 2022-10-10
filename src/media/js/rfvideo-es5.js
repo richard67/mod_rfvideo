@@ -19,8 +19,14 @@
     elVideo.pause();
     elPlayerDiv.style = "max-width: " + sourceGroups[elSelect.options.selectedIndex].totalwmax + ";";
     elVideoDiv.style.flex = "0 1 " + sourceGroups[elSelect.options.selectedIndex].width + "px";
-    elPlaylistWrapper.style.flex = "1 1 " + playlistMinW + "px";
-    elPlaylistWrapper.style.maxWidth = sourceGroups[elSelect.options.selectedIndex].width + "px";
+
+    if (playlistMinW > 0) {
+      elPlaylistWrapper.style.flex = "1 1 " + playlistMinW + "px";
+      elPlaylistWrapper.style.maxWidth = sourceGroups[elSelect.options.selectedIndex].width + "px";
+    } else {
+      elPlaylistWrapper.style.flex = "0 1 " + sourceGroups[elSelect.options.selectedIndex].width + "px";
+    }
+
     elPlaylistDiv.style.flex = "1 1 " + playlistMinH + "px";
     elPlaylistDiv.style.maxHeight = sourceGroups[elSelect.options.selectedIndex].height + "px";
     elVideo.width = sourceGroups[elSelect.options.selectedIndex].width;
@@ -39,7 +45,7 @@
   }
 
   function seek(el, pos) {
-    el.currentTime = pos.toFixed(1);
+    el.currentTime = pos;
     el.play();
   }
 
@@ -78,9 +84,9 @@
     var myVideoPlayerDiv = videoPlayerWrapper.querySelector('.rfvideoplayer');
     var myVideoDiv = videoPlayerWrapper.querySelector('.rfvideo');
     var myPlaylistWrapper = videoPlayerWrapper.querySelector('.rfvideoplaylistwrapper');
+    var myPlaylistMinHeight = parseInt(myPlaylistWrapper.getAttribute('data-min-height'), 10);
+    var myPlaylistMinWidth = parseInt(myPlaylistWrapper.getAttribute('data-min-width'), 10);
     var myPlaylistDiv = videoPlayerWrapper.querySelector('.rfvideoplaylist');
-    var myPlaylistMinHeight = parseInt(myPlaylistDiv.getAttribute('data-min-height'), 10);
-    var myPlaylistMinWidth = parseInt(myPlaylistDiv.getAttribute('data-min-width'), 10);
     var mySourceSelect = videoPlayerWrapper.getElementsByTagName('select')[0];
     var myVideo = videoPlayerWrapper.getElementsByTagName('video')[0];
     var myStatus = videoPlayerWrapper.querySelector('.rfvideostatus');
@@ -123,7 +129,7 @@
       var _loop = function _loop(i) {
         var myPlaylistItem = myPlaylistItems[i].getElementsByTagName('button')[0];
         var item = {
-          start: parseFloat(myPlaylistItem.getAttribute('data-start')),
+          start: parseFloat(myPlaylistItem.getAttribute('data-start')).toFixed(1),
           title: myPlaylistItem.innerHTML
         };
         myPlaylist[i] = item;
@@ -151,7 +157,7 @@
         var myPlaylistItem = myPlaylistItems[_i].getElementsByTagName('button')[0];
 
         myPlaylistItem.addEventListener('click', function () {
-          seek(myVideo, parseFloat(myPlaylistItem.getAttribute('data-start')));
+          seek(myVideo, parseFloat(myPlaylistItem.getAttribute('data-start')).toFixed(1));
         });
       };
 
