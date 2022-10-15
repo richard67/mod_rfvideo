@@ -1,7 +1,7 @@
 # Richard Fath's Video Player Module for Joomla 4.
 This is my video player module for Joomla 4.
 
-I use it for replacing my inline scripted video players of my private Jooomla 3.10 website as part of preparing my site for upgrading to Jooomla 4, which is still work in progress.
+I use it on my private website.
 
 The video itself is a standard HTML5 video element using either the `src` attribute or `source` elements.
 
