@@ -6,36 +6,34 @@ if (!Joomla) {
   throw new Error('Joomla API was not properly initialized');
 }
 
-function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistWrapper, elPlaylistDiv, elVideo, sourceGroups, playlistMinH, playlistMinW) {
+function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistWrapper, elPlaylistDiv, elVideo, sourceGroups) {
   const vidExt = elVideo.currentSrc.substr(elVideo.currentSrc.lastIndexOf('.'));
+  const prevIdx = parseInt(elSelect.getAttribute('data-selected'), 10);
 
-  if (vidExt === '') {
+  if (vidExt === '' || prevIdx === NaN) {
     return;
   }
 
   elVideo.pause();
-  elPlayerDiv.style = `max-width: ${sourceGroups[elSelect.options.selectedIndex].totalwmax};`;
-  elVideoDiv.style.flex = `0 1 ${sourceGroups[elSelect.options.selectedIndex].width}px`;
-  if (playlistMinW > 0) {
-    elPlaylistWrapper.style.flex = `1 1 ${playlistMinW}px`;
-    elPlaylistWrapper.style.maxWidth = `${sourceGroups[elSelect.options.selectedIndex].width}px`;
-  } else {
-    elPlaylistWrapper.style.flex = `0 1 ${sourceGroups[elSelect.options.selectedIndex].width}px`;
-  }
-  elPlaylistDiv.style.flex = `1 1 ${playlistMinH}px`;
-  elPlaylistDiv.style.maxHeight = `${sourceGroups[elSelect.options.selectedIndex].height}px`;
-  elVideo.width = sourceGroups[elSelect.options.selectedIndex].width;
-  elVideo.height = sourceGroups[elSelect.options.selectedIndex].height;
-  elVideo.poster = `/${sourceGroups[elSelect.options.selectedIndex].image}`;
+
   sourceGroups[elSelect.options.selectedIndex].sources.every((source) => {
     if (source.substr(source.lastIndexOf('.')) === vidExt) {
+      elPlayerDiv.classList.remove(`rfvideoquality${prevIdx}`);
+      elVideoDiv.classList.remove(`rfvideoquality${prevIdx}`);
+      elPlaylistWrapper.classList.remove(`rfvideoquality${prevIdx}`);
+      elPlaylistDiv.classList.remove(`rfvideoquality${prevIdx}`);
+      elVideo.poster = `/${sourceGroups[elSelect.options.selectedIndex].image}`;
       elVideo.src = `/${source}`;
+      elPlayerDiv.classList.add(`rfvideoquality${elSelect.options.selectedIndex}`);
+      elVideoDiv.classList.add(`rfvideoquality${elSelect.options.selectedIndex}`);
+      elPlaylistWrapper.classList.add(`rfvideoquality${elSelect.options.selectedIndex}`);
+      elPlaylistDiv.classList.add(`rfvideoquality${elSelect.options.selectedIndex}`);
+      elSelect.setAttribute('data-selected', elSelect.options.selectedIndex);
+      elVideo.load();
       return false;
     }
     return true;
   });
-  elSelect.setAttribute('data-selected', elSelect.options.selectedIndex);
-  elVideo.load();
 }
 
 function seek(el, pos) {
@@ -78,8 +76,6 @@ allVideoPlayerWrappers.forEach((videoPlayerWrapper) => {
   const myVideoPlayerDiv = videoPlayerWrapper.querySelector('.rfvideoplayer');
   const myVideoDiv = videoPlayerWrapper.querySelector('.rfvideo');
   const myPlaylistWrapper = videoPlayerWrapper.querySelector('.rfvideoplaylistwrapper');
-  const myPlaylistMinHeight = parseInt(myPlaylistWrapper.getAttribute('data-min-height'), 10);
-  const myPlaylistMinWidth = parseInt(myPlaylistWrapper.getAttribute('data-min-width'), 10);
   const myPlaylistDiv = videoPlayerWrapper.querySelector('.rfvideoplaylist');
   const mySourceSelect = videoPlayerWrapper.getElementsByTagName('select')[0];
   const myVideo = videoPlayerWrapper.getElementsByTagName('video')[0];
@@ -161,11 +157,8 @@ allVideoPlayerWrappers.forEach((videoPlayerWrapper) => {
     for (let i = 0; i < mySourceSelect.length; i += 1) {
       const opts = mySourceSelect.options[i].value.split(';');
       const group = {
-        height: opts[0],
-        width: opts[1],
-        totalwmax: opts[2],
-        image: opts[3],
-        sources: opts.slice(4),
+        image: opts[0],
+        sources: opts.slice(1),
       };
       mySourceGroups[i] = group;
     }
@@ -179,8 +172,6 @@ allVideoPlayerWrappers.forEach((videoPlayerWrapper) => {
         myPlaylistDiv,
         myVideo,
         mySourceGroups,
-        myPlaylistMinHeight,
-        myPlaylistMinWidth,
       );
     });
   }

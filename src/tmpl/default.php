@@ -13,7 +13,7 @@ use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-if (empty($videoAttribs)) {
+if (empty($videoAttribs) || empty($inlineCss)) {
     return;
 }
 
@@ -34,6 +34,8 @@ if ($stylesheet !== '-1') {
     $wa->registerAndUseStyle('mod_rfvideo', 'mod_rfvideo/' . $stylesheet);
 }
 
+$wa->addInlineStyle(str_replace('{moduleId}', $module->id, $inlineCss));
+
 $title             = Text::_($module->title);
 $showStatus        = $params->get('show_status', 0);
 $playlistPosition  = $params->get('playlist_position', 'side2');
@@ -41,20 +43,6 @@ $downloadLink      = $params->get('download_link', '');
 $showPlaylistItem  = $params->get('show_playlist_item', 0);
 $showItemDuration  = $params->get('show_item_duration', 0);
 $useSources        = strpos($videoAttribs, ' src="') === false;
-
-if (empty($playlist)) {
-    $playlistMinWidth  = 0;
-    $playlistMinWidth  = 0;
-} else {
-    $playlistMinWidth  = $params->get('playlist_min_width', 320);
-    $playlistMinHeight = $params->get('playlist_min_height', 120);
-
-    // Limit to smallest video size
-    foreach ($sourceGroups as $sourceGroup) {
-        $playlistMinWidth  = $playlistMinWidth > $sourceGroup->width ? $sourceGroup->width : $playlistMinWidth;
-        $playlistMinHeight = $playlistMinHeight > $sourceGroup->height ? $sourceGroup->height : $playlistMinHeight;
-    }
-}
 
 // Load JS language strings
 Text::script('MOD_RFVIDEO_LOADING');
@@ -65,8 +53,8 @@ Text::script('MOD_RFVIDEO_SEEKING');
 <?php if ($params->get('select_position', 'none') === 'top') : ?>
     <?php echo str_replace('{moduleId}', $module->id, $selectHtml); ?>
 <?php endif; ?>
-    <div class="rfvideoplayer" style="max-width: <?php echo (in_array($playlistPosition, ['side1', 'side2']) ? $sourceGroups->source_groups0->width + $playlistMinWidth : $sourceGroups->source_groups0->width); ?>px;">
-        <div class="rfvideo <?php echo 'rfvideoplaylist-' . $playlistPosition; ?>" style="flex: 0 1 <?php echo $sourceGroups->source_groups0->width; ?>px;">
+    <div class="rfvideoplayer rfvideoplayer-<?php echo $module->id; ?> rfvideoquality0">
+        <div class="rfvideo rfvideo-<?php echo $module->id; ?> rfvideoquality0 rfvideoplaylist-<?php echo $playlistPosition; ?>">
             <video title="<?php echo $title; ?>"<?php echo $videoAttribs; ?>>
             <?php if ($useSources) : ?>
                 <?php foreach ($sourceGroups->source_groups0->sources as $source) : ?>

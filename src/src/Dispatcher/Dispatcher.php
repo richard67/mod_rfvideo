@@ -42,6 +42,7 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
         $data['selectHtml']   = $helper->getSourceGroupSelect($data['params']);
         $data['videoAttribs'] = $helper->getVideoAttributes($data['params']);
         $data['playlist']     = $helper->getPlaylist($data['params']);
+        $data['inlineCss']    = $helper->getInlineStyle($data['params'], !empty($data['playlist']));
 
         return $data;
     }

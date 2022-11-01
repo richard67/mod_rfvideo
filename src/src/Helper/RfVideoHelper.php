@@ -27,9 +27,62 @@ use Joomla\Utilities\ArrayHelper;
 class RfVideoHelper
 {
     /**
+     * Build the inline style
+     *
+     * @param   Registry  $params       The module parameters.
+     * @param   array     $hasPlaylist  Playlist is used.
+     *
+     * @return  string
+     *
+     * @since   2.0.0
+     */
+    public function getInlineStyle(Registry $params, $hasPlaylist)
+    {
+        $sourceGroups = $params->get('source_groups');
+
+        if (empty($sourceGroups)) {
+            return '';
+        }
+
+        if ($hasPlaylist) {
+            $playlistMinWidth  = $params->get('playlist_min_width', 320);
+            $playlistMinHeight = $params->get('playlist_min_height', 120);
+
+            // Limit to smallest video size
+            foreach ($sourceGroups as $sourceGroup) {
+                $playlistMinWidth  = $playlistMinWidth > $sourceGroup->width ? $sourceGroup->width : $playlistMinWidth;
+                $playlistMinHeight = $playlistMinHeight > $sourceGroup->height ? $sourceGroup->height : $playlistMinHeight;
+            }
+        } else {
+            $playlistMinWidth  = 0;
+            $playlistMinHeight  = 0;
+        }
+
+        $playlistPosition  = $params->get('playlist_position', 'side2');
+        $inlineStyle       = '';
+        $listIndex         = 0;
+
+        foreach ($sourceGroups as $sourceGroup) {
+            $playerMaxWidth    = in_array($playlistPosition, ['side1', 'side2']) ? $sourceGroup->width + $playlistMinWidth : $sourceGroup->width;
+            $playlistWrapStyle = in_array($playlistPosition, ['side1', 'side2']) ? 'flex: 1 1 ' . $playlistMinWidth . 'px; max-width: ' .  $sourceGroup->width . 'px;' : 'flex: 0 1 ' . $sourceGroup->width . 'px;';
+
+            $inlineStyle = $inlineStyle
+            . "\ndiv.rfvideoplayer-{moduleId}.rfvideoquality{$listIndex} { max-width: {$playerMaxWidth}px; }"
+            . "\ndiv.rfvideo-{moduleId}.rfvideoquality{$listIndex} { flex: 0 1 {$sourceGroup->width}px; }"
+            . "\ndiv.rfvideo-{moduleId}.rfvideoquality{$listIndex} video { max-width: {$sourceGroup->width}px; max-height: {$sourceGroup->height}px; }"
+            . "\ndiv.rfvideoplaylistwrapper-{moduleId}.rfvideoquality{$listIndex} { {$playlistWrapStyle} }"
+            . "\ndiv.rfvideoplaylist-{moduleId}.rfvideoquality{$listIndex} { flex: 1 1 {$playlistMinHeight}px; max-height: {$sourceGroups->source_groups0->height}px; }";
+
+            $listIndex++;
+        }
+
+        return $inlineStyle;
+    }
+
+    /**
      * Build the source group select element
      *
-     * @param   Registry  $sourceGroups  The source groups parameter.
+     * @param   Registry  $params  The module parameters.
      *
      * @return  string
      *
@@ -44,8 +97,6 @@ class RfVideoHelper
             return '';
         }
 
-        $playlistPosition  = $params->get('playlist_position', 'side2');
-        $playlistMinWidth  = in_array($params->get('playlist_position', 'side2'), ['side1', 'side2']) ?  $params->get('playlist_min_width', 320) : 0;
         $descr             = $params->get('select_description', '');
         $label             = $params->get('select_label', '');
         $size              = $params->get('select_size', '1');
@@ -62,9 +113,7 @@ class RfVideoHelper
         $selectHtmlEnd = '" data-selected="0">';
 
         foreach ($sourceGroups as $sourceGroup) {
-            $option = $sourceGroup->height . ';' . $sourceGroup->width . ';'
-            . ($sourceGroup->width + $playlistMinWidth) . 'px;'
-            . HTMLHelper::_('cleanImageURL', $sourceGroup->image)->url;
+            $option = HTMLHelper::_('cleanImageURL', $sourceGroup->image)->url;
 
             foreach ($sourceGroup->sources as $source) {
                 $option .= ';' . HTMLHelper::_('cleanImageURL', $source->file)->url;
@@ -109,8 +158,6 @@ class RfVideoHelper
         }
 
         $videoAttribs .= $sourceGroups->source_groups0->image ? ' poster="' . HTMLHelper::_('cleanImageURL', $sourceGroups->source_groups0->image)->url . '"' : '';
-        $videoAttribs .= ' width="' . $sourceGroups->source_groups0->width . '"';
-        $videoAttribs .= ' height="' . $sourceGroups->source_groups0->height . '"';
 
         // Use src attribute if there is only one source file
         if (!(isset($sourceGroups->source_groups1) || isset($sourceGroups->source_groups0->sources->sources1))) {

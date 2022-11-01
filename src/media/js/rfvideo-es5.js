@@ -9,39 +9,34 @@
     throw new Error('Joomla API was not properly initialized');
   }
 
-  function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistWrapper, elPlaylistDiv, elVideo, sourceGroups, playlistMinH, playlistMinW) {
+  function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistWrapper, elPlaylistDiv, elVideo, sourceGroups) {
     var vidExt = elVideo.currentSrc.substr(elVideo.currentSrc.lastIndexOf('.'));
+    var prevIdx = parseInt(elSelect.getAttribute('data-selected'), 10);
 
-    if (vidExt === '') {
+    if (vidExt === '' || prevIdx === NaN) {
       return;
     }
 
     elVideo.pause();
-    elPlayerDiv.style = "max-width: " + sourceGroups[elSelect.options.selectedIndex].totalwmax + ";";
-    elVideoDiv.style.flex = "0 1 " + sourceGroups[elSelect.options.selectedIndex].width + "px";
-
-    if (playlistMinW > 0) {
-      elPlaylistWrapper.style.flex = "1 1 " + playlistMinW + "px";
-      elPlaylistWrapper.style.maxWidth = sourceGroups[elSelect.options.selectedIndex].width + "px";
-    } else {
-      elPlaylistWrapper.style.flex = "0 1 " + sourceGroups[elSelect.options.selectedIndex].width + "px";
-    }
-
-    elPlaylistDiv.style.flex = "1 1 " + playlistMinH + "px";
-    elPlaylistDiv.style.maxHeight = sourceGroups[elSelect.options.selectedIndex].height + "px";
-    elVideo.width = sourceGroups[elSelect.options.selectedIndex].width;
-    elVideo.height = sourceGroups[elSelect.options.selectedIndex].height;
-    elVideo.poster = "/" + sourceGroups[elSelect.options.selectedIndex].image;
     sourceGroups[elSelect.options.selectedIndex].sources.every(function (source) {
       if (source.substr(source.lastIndexOf('.')) === vidExt) {
+        elPlayerDiv.classList.remove("rfvideoquality" + prevIdx);
+        elVideoDiv.classList.remove("rfvideoquality" + prevIdx);
+        elPlaylistWrapper.classList.remove("rfvideoquality" + prevIdx);
+        elPlaylistDiv.classList.remove("rfvideoquality" + prevIdx);
+        elVideo.poster = "/" + sourceGroups[elSelect.options.selectedIndex].image;
         elVideo.src = "/" + source;
+        elPlayerDiv.classList.add("rfvideoquality" + elSelect.options.selectedIndex);
+        elVideoDiv.classList.add("rfvideoquality" + elSelect.options.selectedIndex);
+        elPlaylistWrapper.classList.add("rfvideoquality" + elSelect.options.selectedIndex);
+        elPlaylistDiv.classList.add("rfvideoquality" + elSelect.options.selectedIndex);
+        elSelect.setAttribute('data-selected', elSelect.options.selectedIndex);
+        elVideo.load();
         return false;
       }
 
       return true;
     });
-    elSelect.setAttribute('data-selected', elSelect.options.selectedIndex);
-    elVideo.load();
   }
 
   function seek(el, pos) {
@@ -84,8 +79,6 @@
     var myVideoPlayerDiv = videoPlayerWrapper.querySelector('.rfvideoplayer');
     var myVideoDiv = videoPlayerWrapper.querySelector('.rfvideo');
     var myPlaylistWrapper = videoPlayerWrapper.querySelector('.rfvideoplaylistwrapper');
-    var myPlaylistMinHeight = parseInt(myPlaylistWrapper.getAttribute('data-min-height'), 10);
-    var myPlaylistMinWidth = parseInt(myPlaylistWrapper.getAttribute('data-min-width'), 10);
     var myPlaylistDiv = videoPlayerWrapper.querySelector('.rfvideoplaylist');
     var mySourceSelect = videoPlayerWrapper.getElementsByTagName('select')[0];
     var myVideo = videoPlayerWrapper.getElementsByTagName('video')[0];
@@ -174,17 +167,14 @@
         var opts = mySourceSelect.options[_i2].value.split(';');
 
         var group = {
-          height: opts[0],
-          width: opts[1],
-          totalwmax: opts[2],
-          image: opts[3],
-          sources: opts.slice(4)
+          image: opts[0],
+          sources: opts.slice(1)
         };
         mySourceGroups[_i2] = group;
       }
 
       mySourceSelect.addEventListener('change', function () {
-        sourceSelectChanged(mySourceSelect, myVideoPlayerDiv, myVideoDiv, myPlaylistWrapper, myPlaylistDiv, myVideo, mySourceGroups, myPlaylistMinHeight, myPlaylistMinWidth);
+        sourceSelectChanged(mySourceSelect, myVideoPlayerDiv, myVideoDiv, myPlaylistWrapper, myPlaylistDiv, myVideo, mySourceGroups);
       });
     }
   });

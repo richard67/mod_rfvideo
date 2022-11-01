@@ -12,13 +12,9 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Language\Text;
 
 ?>
-<?php if (in_array($playlistPosition, ['side1', 'side2'])) : ?>
-<div class="rfvideoplaylistwrapper <?php echo 'rfvideoplaylist-' . $playlistPosition; ?>" data-min-height="<?php echo $playlistMinHeight; ?>" data-min-width="<?php echo $playlistMinWidth; ?>" style="flex: 1 1 <?php echo $playlistMinWidth; ?>px; max-width: <?php echo $sourceGroups->source_groups0->width; ?>px;">
-<?php else : ?>
-<div class="rfvideoplaylistwrapper <?php echo 'rfvideoplaylist-' . $playlistPosition; ?>" data-min-height="<?php echo $playlistMinHeight; ?>" data-min-width="0" style="flex: 0 1 <?php echo $sourceGroups->source_groups0->width; ?>px;">
-<?php endif; ?>
+<div class="rfvideoplaylistwrapper rfvideoplaylistwrapper-<?php echo $module->id; ?> rfvideoquality0 rfvideoplaylist-<?php echo $playlistPosition; ?>">
     <div class="rfvideoplaylisttop"> </div>
-    <div class="rfvideoplaylist" style="flex: 1 1 <?php echo $playlistMinHeight; ?>px; max-height: <?php echo $sourceGroups->source_groups0->height; ?>px;">
+    <div class="rfvideoplaylist rfvideoplaylist-<?php echo $module->id; ?> rfvideoquality0">
         <?php if (array_values($playlist)[0]->position > 0) : ?>
         <ol class="rfvideoplaylist-list" start="0">
             <li class="rfvideoplaylist-item rfvideoplaylist-start"><button data-start="0"><?php echo Text::_('MOD_RFVIDEO_PLAYLIST_START'); ?></button></li>
