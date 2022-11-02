@@ -22,15 +22,15 @@
 		<description>Richard Fath's video player module for Joomla! CMS</description>
 		<element>mod_rfvideo</element>
 		<type>module</type>
-		<version>2.0.0-alpha3</version>
+		<version>2.0.0-beta1</version>
 		<client>site</client>
 		<infourl title="Richard Fath's Video Player Module">https://github.com/richard67/mod_rfvideo/blob/main/README.md</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/richard67/mod_rfvideo/releases/download/2.0.0-alpha3/mod_rfvideo_2.0.0-alpha3.zip</downloadurl>
+			<downloadurl type="full" format="zip">https://github.com/richard67/mod_rfvideo/releases/download/2.0.0-beta1/mod_rfvideo_2.0.0-beta1.zip</downloadurl>
 		</downloads>
-		<sha512>b6d8355b8273d1ff10c1a46b755be32b5867fd28a5703bae3a556c020718e42686481e118398e14b50f2afea236a198bf468ae3d927efe363bd676a81ef07404</sha512>
+		<sha512>f8ab38b7b13f09802a3bea5519fbd4ba41cf28b11f7b47b7c2ecfe5365a57bd8514d52cd78c16fc4c4ff6435d468b3bec8865b777671d72ef177ab77866d8a57</sha512>
 		<tags>
-			<tag>alpha</tag>
+			<tag>beta</tag>
 		</tags>
 		<targetplatform name="joomla" version="4.[0123]" />
 	</update>
