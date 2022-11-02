@@ -28,7 +28,7 @@
 		<downloads>
 			<downloadurl type="full" format="zip">https://github.com/richard67/mod_rfvideo/releases/download/2.0.0-beta1/mod_rfvideo_2.0.0-beta1.zip</downloadurl>
 		</downloads>
-		<sha512>f8ab38b7b13f09802a3bea5519fbd4ba41cf28b11f7b47b7c2ecfe5365a57bd8514d52cd78c16fc4c4ff6435d468b3bec8865b777671d72ef177ab77866d8a57</sha512>
+		<sha512>f0b9c85389dce8904dcf34f880cbfdc2249c6bba0be6cb76dcf015321ef8243902b1212232779898fc5e704600c14bbaf75b6727c8659e8b155e5e0d097bdf22</sha512>
 		<tags>
 			<tag>beta</tag>
 		</tags>
