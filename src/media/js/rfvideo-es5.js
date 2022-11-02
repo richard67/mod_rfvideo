@@ -13,7 +13,7 @@
     var vidExt = elVideo.currentSrc.substr(elVideo.currentSrc.lastIndexOf('.'));
     var prevIdx = parseInt(elSelect.getAttribute('data-selected'), 10);
 
-    if (vidExt === '' || prevIdx === NaN) {
+    if (vidExt === '' || Number.isNaN(prevIdx)) {
       return;
     }
 

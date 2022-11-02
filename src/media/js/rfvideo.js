@@ -10,7 +10,7 @@ function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistWrappe
   const vidExt = elVideo.currentSrc.substr(elVideo.currentSrc.lastIndexOf('.'));
   const prevIdx = parseInt(elSelect.getAttribute('data-selected'), 10);
 
-  if (vidExt === '' || prevIdx === NaN) {
+  if (vidExt === '' || Number.isNaN(prevIdx)) {
     return;
   }
 
