@@ -180,6 +180,7 @@
 					multiple="true"
 					layout="joomla.form.field.subform.repeatable"
 					buttons="add,remove,move"
+					validate="Subform"
 				>
 					<form>
 						<field
@@ -214,6 +215,7 @@
 							multiple="true"
 							layout="joomla.form.field.subform.repeatable-table"
 							buttons="add,remove,move"
+							validate="Subform"
 						>
 							<form>
 								<field
@@ -319,6 +321,7 @@
 					multiple="true"
 					layout="joomla.form.field.subform.repeatable-table"
 					buttons="add,remove,move"
+					validate="Subform"
 					showon="playlist_source:0"
 				>
 					<form>
