@@ -91,8 +91,8 @@
 					type="list"
 					label="MOD_RFVIDEO_PRELOAD_LABEL"
 					description="MOD_RFVIDEO_PRELOAD_DESCR"
-					required="true"
 					default="none"
+					required="true"
 					validate="options"
 					>
 					<option value="auto" />
@@ -142,6 +142,7 @@
 					label="MOD_RFVIDEO_SELECT_POSITION_LABEL"
 					description="MOD_RFVIDEO_SELECT_POSITION_DESCR"
 					default="none"
+					required="true"
 					validate="options"
 					>
 					<option value="none">JNONE</option>
@@ -309,8 +310,8 @@
 					type="list"
 					label="MOD_RFVIDEO_PLAYLIST_SOURCE_LABEL"
 					description="MOD_RFVIDEO_PLAYLIST_SOURCE_DESCR"
-					required="true"
 					default="0"
+					required="true"
 					validate="options"
 					>
 					<option value="0">MOD_RFVIDEO_PLAYLIST_SOURCE_FORM</option>
