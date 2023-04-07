@@ -30,7 +30,7 @@
 		</downloads>
 		<sha512>bf3c5f11fed9bde9a2d1653e0674f19f65c6af5cc4aba17c1e647744f00c6d470b52c89d0b46770124e6ed97013e01184039bd756a351d43334819442de5e8ee</sha512>
 		<tags>
-			<tag>beta</tag>
+			<tag>rc</tag>
 		</tags>
 		<targetplatform name="joomla" version="4.[0123]" />
 	</update>
