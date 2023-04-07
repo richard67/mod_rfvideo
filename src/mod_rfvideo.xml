@@ -186,11 +186,6 @@
 				>
 					<form>
 						<field
-							name="description"
-							type="text"
-							label="MOD_RFVIDEO_DESCRIPTION_LABEL"
-						/>
-						<field
 							name="height"
 							type="text"
 							label="MOD_RFVIDEO_HEIGHT_LABEL"
@@ -203,6 +198,11 @@
 							label="MOD_RFVIDEO_WIDTH_LABEL"
 							required="true"
 							filter="integer"
+						/>
+						<field
+							name="description"
+							type="text"
+							label="MOD_RFVIDEO_DESCRIPTION_LABEL"
 						/>
 						<field
 							name="image"
