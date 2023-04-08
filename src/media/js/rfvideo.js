@@ -5,15 +5,12 @@
 if (!Joomla) {
   throw new Error('Joomla API was not properly initialized');
 }
-
 function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistWrapper, elPlaylistDiv, elVideo, sourceGroups) {
   const vidExt = elVideo.currentSrc.substr(elVideo.currentSrc.lastIndexOf('.'));
   const prevIdx = parseInt(elSelect.getAttribute('data-selected'), 10);
-
   if (vidExt === '' || Number.isNaN(prevIdx)) {
     return;
   }
-
   elVideo.pause();
   sourceGroups[elSelect.options.selectedIndex].sources.every(source => {
     if (source.substr(source.lastIndexOf('.')) === vidExt) {
@@ -31,16 +28,13 @@ function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistWrappe
       elVideo.load();
       return false;
     }
-
     return true;
   });
 }
-
 function seek(el, pos) {
   el.currentTime = pos;
   el.play();
 }
-
 function updchapter(elVideo, elStatus, playlist, txtSeeking) {
   if (elVideo.seeking) {
     elStatus.innerHTML = txtSeeking;
@@ -49,28 +43,22 @@ function updchapter(elVideo, elStatus, playlist, txtSeeking) {
   } else {
     let tmpTitle = '';
     let i = playlist.length - 1;
-
     while (i >= 0) {
       if (elVideo.currentTime >= playlist[i].start) {
         tmpTitle = playlist[i].title;
         break;
       }
-
       i -= 1;
     }
-
     elStatus.innerHTML = tmpTitle;
   }
 }
-
 function setstatus(el, txt) {
   el.innerHTML = txt;
 }
-
 function clearstatus(el, txt) {
   if (el.innerHTML === txt) el.innerHTML = '';
 }
-
 const allVideoPlayerWrappers = document.querySelectorAll('div.rfvideoplayerwrapper');
 allVideoPlayerWrappers.forEach(videoPlayerWrapper => {
   const myVideoPlayerDiv = videoPlayerWrapper.querySelector('.rfvideoplayer');
@@ -84,10 +72,8 @@ allVideoPlayerWrappers.forEach(videoPlayerWrapper => {
   const showTitle = myStatus ? !!myStatus.getAttribute('data-show-title') : false;
   const myPlaylistItems = videoPlayerWrapper.getElementsByTagName('li');
   let textSeeking = '';
-
   if (showStatus) {
     const textLoading = Joomla.Text._('MOD_RFVIDEO_LOADING').replace('&hellip;', '\u{2026}');
-
     textSeeking = Joomla.Text._('MOD_RFVIDEO_SEEKING').replace('&hellip;', '\u{2026}');
     myVideo.addEventListener('loadstart', () => {
       if (myVideo.networkState === 2) {
@@ -112,10 +98,8 @@ allVideoPlayerWrappers.forEach(videoPlayerWrapper => {
       clearstatus(myStatus, textSeeking);
     });
   }
-
   if (showTitle) {
     const myPlaylist = [];
-
     for (let i = 0; i < myPlaylistItems.length; i += 1) {
       const myPlaylistItem = myPlaylistItems[i].getElementsByTagName('button')[0];
       const item = {
@@ -127,7 +111,6 @@ allVideoPlayerWrappers.forEach(videoPlayerWrapper => {
         seek(myVideo, item.start);
       });
     }
-
     myPlaylist[myPlaylistItems.length] = {
       start: myVideo.duration,
       title: ''
@@ -146,11 +129,9 @@ allVideoPlayerWrappers.forEach(videoPlayerWrapper => {
       });
     }
   }
-
   if (mySourceSelect) {
     const mySourceGroups = [];
     mySourceSelect.value = mySourceSelect.options[0].value;
-
     for (let i = 0; i < mySourceSelect.length; i += 1) {
       const opts = mySourceSelect.options[i].value.split(';');
       const group = {
@@ -159,7 +140,6 @@ allVideoPlayerWrappers.forEach(videoPlayerWrapper => {
       };
       mySourceGroups[i] = group;
     }
-
     mySourceSelect.addEventListener('change', () => {
       sourceSelectChanged(mySourceSelect, myVideoPlayerDiv, myVideoDiv, myPlaylistWrapper, myPlaylistDiv, myVideo, mySourceGroups);
     });
