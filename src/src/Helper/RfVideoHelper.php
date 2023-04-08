@@ -64,14 +64,16 @@ class RfVideoHelper
 
         foreach ($sourceGroups as $sourceGroup) {
             $playerMaxWidth    = in_array($playlistPosition, ['side1', 'side2']) ? $sourceGroup->width + $playlistMinWidth : $sourceGroup->width;
-            $playlistWrapStyle = in_array($playlistPosition, ['side1', 'side2']) ? 'flex: 1 1 ' . $playlistMinWidth . 'px; max-width: ' .  $sourceGroup->width . 'px;' : 'flex: 0 1 ' . $sourceGroup->width . 'px;';
+            $playlistWrapStyle = in_array($playlistPosition, ['side1', 'side2'])
+                ? '-webkit-box-flex: 1; -ms-flex: 1 1 ' . $playlistMinWidth . 'px; flex: 1 1 ' . $playlistMinWidth . 'px; max-width: ' .  $sourceGroup->width . 'px;'
+                : '-webkit-box-flex: 0; -ms-flex: 0 1 ' . $sourceGroup->width . 'px; flex: 0 1 ' . $sourceGroup->width . 'px;';
 
             $inlineStyle = $inlineStyle
             . "\ndiv.rfvideoplayer-{moduleId}.rfvideoquality{$listIndex} { max-width: {$playerMaxWidth}px; }"
-            . "\ndiv.rfvideo-{moduleId}.rfvideoquality{$listIndex} { flex: 0 1 {$sourceGroup->width}px; }"
+            . "\ndiv.rfvideo-{moduleId}.rfvideoquality{$listIndex} { -webkit-box-flex: 0; -ms-flex: 0 1 {$sourceGroup->width}px; flex: 0 1 {$sourceGroup->width}px; }"
             . "\ndiv.rfvideo-{moduleId}.rfvideoquality{$listIndex} video { max-width: {$sourceGroup->width}px; max-height: {$sourceGroup->height}px; }"
             . "\ndiv.rfvideoplaylistwrapper-{moduleId}.rfvideoquality{$listIndex} { {$playlistWrapStyle} }"
-            . "\ndiv.rfvideoplaylist-{moduleId}.rfvideoquality{$listIndex} { flex: 1 1 {$playlistMinHeight}px; max-height: {$sourceGroups->source_groups0->height}px; }";
+            . "\ndiv.rfvideoplaylist-{moduleId}.rfvideoquality{$listIndex} { -webkit-box-flex: 1; -ms-flex: 1 1 {$playlistMinHeight}px; flex: 1 1 {$playlistMinHeight}px; max-height: {$sourceGroups->source_groups0->height}px; }";
 
             $listIndex++;
         }
