@@ -8,15 +8,12 @@
   if (!Joomla) {
     throw new Error('Joomla API was not properly initialized');
   }
-
   function sourceSelectChanged(elSelect, elPlayerDiv, elVideoDiv, elPlaylistWrapper, elPlaylistDiv, elVideo, sourceGroups) {
     var vidExt = elVideo.currentSrc.substr(elVideo.currentSrc.lastIndexOf('.'));
     var prevIdx = parseInt(elSelect.getAttribute('data-selected'), 10);
-
     if (vidExt === '' || Number.isNaN(prevIdx)) {
       return;
     }
-
     elVideo.pause();
     sourceGroups[elSelect.options.selectedIndex].sources.every(function (source) {
       if (source.substr(source.lastIndexOf('.')) === vidExt) {
@@ -34,16 +31,13 @@
         elVideo.load();
         return false;
       }
-
       return true;
     });
   }
-
   function seek(el, pos) {
     el.currentTime = pos;
     el.play();
   }
-
   function updchapter(elVideo, elStatus, playlist, txtSeeking) {
     if (elVideo.seeking) {
       elStatus.innerHTML = txtSeeking;
@@ -52,28 +46,22 @@
     } else {
       var tmpTitle = '';
       var i = playlist.length - 1;
-
       while (i >= 0) {
         if (elVideo.currentTime >= playlist[i].start) {
           tmpTitle = playlist[i].title;
           break;
         }
-
         i -= 1;
       }
-
       elStatus.innerHTML = tmpTitle;
     }
   }
-
   function setstatus(el, txt) {
     el.innerHTML = txt;
   }
-
   function clearstatus(el, txt) {
     if (el.innerHTML === txt) el.innerHTML = '';
   }
-
   var allVideoPlayerWrappers = document.querySelectorAll('div.rfvideoplayerwrapper');
   allVideoPlayerWrappers.forEach(function (videoPlayerWrapper) {
     var myVideoPlayerDiv = videoPlayerWrapper.querySelector('.rfvideoplayer');
@@ -87,10 +75,8 @@
     var showTitle = myStatus ? !!myStatus.getAttribute('data-show-title') : false;
     var myPlaylistItems = videoPlayerWrapper.getElementsByTagName('li');
     var textSeeking = '';
-
     if (showStatus) {
       var textLoading = Joomla.Text._('MOD_RFVIDEO_LOADING').replace('&hellip;', "\u2026");
-
       textSeeking = Joomla.Text._('MOD_RFVIDEO_SEEKING').replace('&hellip;', "\u2026");
       myVideo.addEventListener('loadstart', function () {
         if (myVideo.networkState === 2) {
@@ -115,11 +101,9 @@
         clearstatus(myStatus, textSeeking);
       });
     }
-
     if (showTitle) {
       var myPlaylist = [];
-
-      var _loop = function _loop(i) {
+      var _loop = function _loop() {
         var myPlaylistItem = myPlaylistItems[i].getElementsByTagName('button')[0];
         var item = {
           start: parseFloat(myPlaylistItem.getAttribute('data-start')).toFixed(1),
@@ -130,11 +114,9 @@
           seek(myVideo, item.start);
         });
       };
-
       for (var i = 0; i < myPlaylistItems.length; i += 1) {
-        _loop(i);
+        _loop();
       }
-
       myPlaylist[myPlaylistItems.length] = {
         start: myVideo.duration,
         title: ''
@@ -146,33 +128,27 @@
         updchapter(myVideo, myStatus, myPlaylist, textSeeking);
       });
     } else {
-      var _loop2 = function _loop2(_i) {
+      var _loop2 = function _loop2() {
         var myPlaylistItem = myPlaylistItems[_i].getElementsByTagName('button')[0];
-
         myPlaylistItem.addEventListener('click', function () {
           seek(myVideo, parseFloat(myPlaylistItem.getAttribute('data-start')).toFixed(1));
         });
       };
-
       for (var _i = 0; _i < myPlaylistItems.length; _i += 1) {
-        _loop2(_i);
+        _loop2();
       }
     }
-
     if (mySourceSelect) {
       var mySourceGroups = [];
       mySourceSelect.value = mySourceSelect.options[0].value;
-
       for (var _i2 = 0; _i2 < mySourceSelect.length; _i2 += 1) {
         var opts = mySourceSelect.options[_i2].value.split(';');
-
         var group = {
           image: opts[0],
           sources: opts.slice(1)
         };
         mySourceGroups[_i2] = group;
       }
-
       mySourceSelect.addEventListener('change', function () {
         sourceSelectChanged(mySourceSelect, myVideoPlayerDiv, myVideoDiv, myPlaylistWrapper, myPlaylistDiv, myVideo, mySourceGroups);
       });
