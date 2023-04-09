@@ -3,9 +3,9 @@ This is my video player module for Joomla 4.0 and later versions.
 
 I use it on my private website.
 
-The video itself is a standard HTML5 video element using either the `src` attribute or `source` elements.
+The video itself is a standard HTML5 video element using either the `src` attribute or `source` elements, and the player controls are the built-in controls of the browser.
 
-What my player provides in addition is a playlist which can be used to navigate to sections of the video, display of loading or seeking status and the possibility switch between different groups of video sources typically for choosing different video qualities.
+What my player provides in addition is a playlist which can be used to navigate to sections of the video, display of loading or seeking status and the possibility to switch between different groups of video sources, typically for choosing different video qualities.
 
 For each of these source groups it is possible to specify multiple video sources to support different video formats.
 
