@@ -1,5 +1,5 @@
-# Richard Fath's Video Player Module for Joomla 4.
-This is my video player module for Joomla 4.
+# Richard Fath's Video Player Module for Joomla
+This is my video player module for Joomla 4.0 and later versions.
 
 I use it on my private website.
 
@@ -11,7 +11,7 @@ For each of these source groups it is possible to specify multiple video sources
 
 All parameters are defined in the module's settings, which provide also inline help texts.
 
-There is already an installable package available for download, see the releases, and there is an update site for updates.
+There are installable packages available for download, see the releases, and there is an update site for updates.
 
 So feel free to use it.
 
