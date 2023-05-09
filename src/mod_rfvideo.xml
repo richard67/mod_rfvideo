@@ -9,7 +9,7 @@
 	<authorUrl>www.richard-fath.de</authorUrl>
 	<version>2.0.0</version>
 	<description>MOD_RFVIDEO_XML_DESCRIPTION</description>
-	<namespace path="src">Joomla\Module\RfVideo</namespace>
+	<namespace path="src">RichardFath\Module\RfVideo</namespace>
 	<media destination="mod_rfvideo" folder="media">
 		<folder>css</folder>
 		<folder>js</folder>
