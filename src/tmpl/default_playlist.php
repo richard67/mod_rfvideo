@@ -23,7 +23,7 @@ use Joomla\CMS\Language\Text;
         <?php endif; ?>
             <?php foreach ($playlist as $item) : ?>
             <li class="rfvideoplaylist-item">
-                <button data-start="<?php echo $item->position; ?>"><?php echo $item->title; ?>
+                <button data-start="<?php echo $item->position; ?>"><?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>
                 <?php if ($showItemDuration && !empty($item->duration)) : ?>
                 <span class="rfvideo-duration">
                     <?php echo preg_replace('/^0[0]+' . Text::_('MOD_RFVIDEO_PLAYLIST_TIME_SEPARATOR') . '/', '', \DateTime::createFromFormat('U', round($item->duration))->format(Text::_('MOD_RFVIDEO_PLAYLIST_TIME_FORMAT'))); ?>

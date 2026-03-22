@@ -36,7 +36,7 @@ if ($stylesheet !== '-1') {
 
 $wa->addInlineStyle(str_replace('{moduleId}', $module->id, $inlineCss));
 
-$title             = Text::_($module->title);
+$title             = htmlspecialchars(Text::_($module->title), ENT_QUOTES, 'UTF-8');
 $showStatus        = $params->get('show_status', 0);
 $playlistPosition  = $params->get('playlist_position', 'side2');
 $downloadLink      = $params->get('download_link', '');
