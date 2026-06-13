@@ -7,6 +7,9 @@ composer.phar
 vendor/
 .php-cs-fixer.cache
 
+# Tests
+joomla/
+
 # OSX
 .DS_Store
 ._*
