@@ -5,6 +5,7 @@ mod_rfvideo_*.zip
 # Composer
 composer.phar
 vendor/
+.php-cs-fixer.cache
 
 # OSX
 .DS_Store
