@@ -54,7 +54,7 @@ class RfVideoHelper
                 $playlistMinHeight = $playlistMinHeight > $sourceGroup->height ? $sourceGroup->height : $playlistMinHeight;
             }
         } else {
-            $playlistMinWidth  = 0;
+            $playlistMinWidth   = 0;
             $playlistMinHeight  = 0;
         }
 
@@ -63,8 +63,8 @@ class RfVideoHelper
         $listIndex         = 0;
 
         foreach ($sourceGroups as $sourceGroup) {
-            $playerMaxWidth    = in_array($playlistPosition, ['side1', 'side2']) ? $sourceGroup->width + $playlistMinWidth : $sourceGroup->width;
-            $playlistWrapStyle = in_array($playlistPosition, ['side1', 'side2'])
+            $playerMaxWidth    = \in_array($playlistPosition, ['side1', 'side2']) ? $sourceGroup->width + $playlistMinWidth : $sourceGroup->width;
+            $playlistWrapStyle = \in_array($playlistPosition, ['side1', 'side2'])
                 ? '-webkit-box-flex: 1; -ms-flex: 1 1 ' . $playlistMinWidth . 'px; flex: 1 1 ' . $playlistMinWidth . 'px; max-width: ' .  $sourceGroup->width . 'px;'
                 : '-webkit-box-flex: 0; -ms-flex: 0 1 ' . $sourceGroup->width . 'px; flex: 0 1 ' . $sourceGroup->width . 'px;';
 
@@ -210,17 +210,17 @@ class RfVideoHelper
 
         foreach ($lines as $line) {
             if (preg_match('/^([^->\s]+)\s+-->\s+([^->\s]+)\s*$/', $line, $matches)) {
-                $base = floatval(\DateTime::createFromFormat('Y-m-d H:i:s.u', '2000-01-01 00:00:00.000')->format('U.u'));
-                $start = floatval(\DateTime::createFromFormat('Y-m-d H:i:s.u', '2000-01-01 ' . $matches[1])->format('U.u'));
-                $end = floatval(\DateTime::createFromFormat('Y-m-d H:i:s.u', '2000-01-01 ' . $matches[2])->format('U.u'));
-                $item = new \stdClass();
+                $base           = \floatval(\DateTime::createFromFormat('Y-m-d H:i:s.u', '2000-01-01 00:00:00.000')->format('U.u'));
+                $start          = \floatval(\DateTime::createFromFormat('Y-m-d H:i:s.u', '2000-01-01 ' . $matches[1])->format('U.u'));
+                $end            = \floatval(\DateTime::createFromFormat('Y-m-d H:i:s.u', '2000-01-01 ' . $matches[2])->format('U.u'));
+                $item           = new \stdClass();
                 $item->position = round($start - $base, 3);
                 $item->duration = round($end - $start, 3);
                 $item->title    = '';
             } elseif (!empty($item) && !strpos($line, 'WEBVTT')) {
                 $item->title = $line;
-                $playlist[] = $item;
-                $item = null;
+                $playlist[]  = $item;
+                $item        = null;
             }
         }
 
