@@ -2,6 +2,10 @@
 build
 mod_rfvideo_*.zip
 
+# Composer
+composer.phar
+vendor/
+
 # OSX
 .DS_Store
 ._*

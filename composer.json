@@ -1,0 +1,30 @@
+{
+    "name": "richard67/mod_rfvideo",
+    "type": "project",
+    "description": "Richard Fath's Video player module for Joomla 4 and newer",
+    "keywords": [
+        "video-player",
+        "joomla-module"
+    ],
+    "homepage": "https://github.com/richard67/mod_rfvideo",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Richard Fath",
+            "email": "richard@richard-fath.de"
+        }
+    ],
+    "config": {
+        "platform": {
+        "php": "8.2"
+    }
+    },
+    "autoload": {
+        "psr-4": {
+            "RichardFath\\Module\\RfVideo\\Site\\": "src/src"
+        }
+    },
+    "require": {
+        "php": "^8.2"
+    }
+}
