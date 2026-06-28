@@ -15,7 +15,7 @@
 		<folder>js</folder>
 		<folder>vtt</folder>
 	</media>
-	<files>
+	<files folder="modules/mod_rfvideo">
 		<folder module="mod_rfvideo">services</folder>
 		<folder>src</folder>
 		<folder>tmpl</folder>
