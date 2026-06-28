@@ -10,7 +10,7 @@
 	<version>2.0.3</version>
 	<description>MOD_RFVIDEO_XML_DESCRIPTION</description>
 	<namespace path="src">RichardFath\Module\RfVideo</namespace>
-	<media destination="mod_rfvideo" folder="media">
+	<media destination="mod_rfvideo" folder="media/mod_rfvideo">
 		<folder>css</folder>
 		<folder>js</folder>
 		<folder>vtt</folder>
